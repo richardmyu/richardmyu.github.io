@@ -41,11 +41,19 @@ if (document.querySelectorAll('pre.mermaid').length) {
     });
   }, window.mermaid);
 }
-</script></body><script>
+</script><script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script><script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://richardmyu.github.io/posts/a6f3e3a3/',]
+      });
+      });
+  </script></body><script>
   const logText = `
     既自以心为形役，奚惆怅而独悲？\n
     悟已往之不谏，知来者之可追。 \n
     实迷途其未远，觉今是而昨非。\n
   `;
-  console.log("%c " + logText, "font-size:24px;font-weight:600;padding:30px 0px;line-height:24px;");
+  console.log("%c " + logText, "font-size:24px;font-weight:600;padding:10px 0px;line-height:18px;");
 </script></html>
