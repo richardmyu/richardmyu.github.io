@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+Allow: /archives/
+Allow: /categories/
+Allow: /tags/
+Allow: /about/
+
+Disallow: /assets/
+Disallow: /js/
+Disallow: /css/
+Disallow: /lib/
+
+Sitemap: https://richardmyu.github.io/sitemap.xml
+Sitemap: https://richardmyu.github.io/baidusitemap.xml
