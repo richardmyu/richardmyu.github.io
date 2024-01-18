@@ -2572,3 +2572,105 @@ hr {
 .sub-menu .menu-item {
   display: inline-block;
 }
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+.post-body .image-caption {
+  margin: 8px auto 24px;
+}
+a.fancybox {
+  border-bottom-width: 0;
+}
+.album-wrapper .album-box {
+  padding: 8px !important;
+  margin-bottom: 32px;
+}
+.album-wrapper a {
+  border-bottom-width: 0;
+}
+.album-wrapper a:hover {
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.4), 8px 8px 4px 4px rgba(0,0,0,0.4);
+  transform: translate(-4px, -4px);
+}
+.album-wrapper .album-item {
+  display: block;
+  overflow: hidden;
+  background-color: #fff;
+  padding: 16px;
+  padding-bottom: 0;
+  position: relative;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.4);
+  border-radius: 4px 4px 0 0;
+}
+.album-cover-box {
+  width: 100%;
+  padding-top: 60%;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+  background: center center no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+  margin-bottom: 16px;
+}
+.album-cover-box .album-cover-img {
+  display: inline-block;
+  width: 100%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.album-item .album-name {
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 24px;
+  text-align: center;
+  color: #555;
+  margin: 0 0 16px 0;
+}
+.album-description {
+  margin: 0 0 24px 0;
+  padding: 16px 8px;
+  background: #eee;
+  border-radius: 0 0 4px 4px;
+}
+.gallery .gallery-description {
+  background: #eee;
+  border-radius: 4px;
+  padding: 16px 8px;
+}
+.gallery .gallery-description p {
+  margin-bottom: 0;
+}
+.instagram a {
+  border-bottom-width: 0;
+  display: block;
+  overflow: hidden;
+  background-color: #fff;
+  padding: 8px;
+}
+.instagram a img {
+  margin-bottom: 0;
+}
+.instagram .img-box {
+  padding: 0;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+  flex: 0 0 auto;
+}
+.img-box .thumb {
+  display: block;
+  width: 160px;
+  margin: 0;
+}
+@media (max-width: 375px) {
+  .img-box .thumb {
+    margin: 0 auto;
+  }
+}
