@@ -12,7 +12,7 @@ NexT.utils = {
    * Wrap images with fancybox.
    */
   wrapImageWithFancyBox: function () {
-    // TODO:MODIFY 多加一个 .post，避免在主页将摘录的图片进行处理
+    // TODO: MODIFY 多加一个 .post，避免在主页将摘录的图片进行处理
     document.querySelectorAll('.post .post-body :not(a) > img, .post .post-body > img').forEach(element => {
       var $image = $(element);
       var imageLink = $image.attr('data-src') || $image.attr('src');
@@ -233,8 +233,8 @@ NexT.utils = {
   },
 
   registerSidebarTOC: function () {
-    // TODO a 标签 href 信息未注入，导致锚点功能失效
-    // 根本原因，渲染引擎渲染的标题不带 id 属性
+    // TODO: a 标签 href 信息未注入，导致锚点功能失效
+    // TODO: 根本原因，渲染引擎渲染的标题不带 id 属性
     const navItems = document.querySelectorAll('.post-toc li');
     const sections = [...navItems].map(element => {
       var link = element.querySelector('a.nav-link');
@@ -300,7 +300,6 @@ NexT.utils = {
       marginTop = Math.floor(marginTop + 10000);
       let intersectionObserver = new IntersectionObserver((entries, observe) => {
         let scrollHeight = document.documentElement.scrollHeight + 100;
-        // console.log(scrollHeight, marginTop);
         if (scrollHeight > marginTop) {
           observe.disconnect();
           createIntersectionObserver(scrollHeight);
@@ -383,10 +382,10 @@ NexT.utils = {
       // There's no definition sidebar in the page front-matter.
       display = CONFIG.sidebar.display === 'always' || (CONFIG.sidebar.display === 'post' && hasTOC);
     }
-    // 有 TOC 自动展开
-    // if (display) {
-    //   window.dispatchEvent(new Event('sidebar:show'));
-    // }
+    // TODO: 有 TOC 自动展开
+    if (display) {
+      window.dispatchEvent(new Event('sidebar:show'));
+    }
   },
 
   getScript: function (url, callback, condition) {
