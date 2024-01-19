@@ -184,7 +184,7 @@ body {
   background: var(--body-bg-color);
   box-sizing: border-box;
   color: var(--text-color);
-  font-family: Lato, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: EB Garamond, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   font-size: 1em;
   line-height: 2;
   min-height: 100%;
@@ -197,7 +197,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: Lato, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: Noto Serif SC, EB Garamond, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   font-weight: bold;
   line-height: 1.5;
   margin: 30px 0 15px;
@@ -363,6 +363,45 @@ td {
   top: -6px;
   transform: rotate(45deg);
 }
+.highlight:hover .copy-btn,
+.code-container:hover .copy-btn {
+  opacity: 1;
+}
+.code-container {
+  position: relative;
+}
+.copy-btn {
+  color: #333;
+  cursor: pointer;
+  line-height: 1.6;
+  opacity: 0;
+  padding: 2px 6px;
+  position: absolute;
+  transition: opacity 0.2s ease-in-out;
+  color: var(--highlight-foreground);
+  font-size: 14px;
+  right: 0;
+  top: 2px;
+}
+figure.highlight {
+  border-radius: 5px;
+  box-shadow: 0 10px 30px 0 rgba(0,0,0,0.4);
+  padding-top: 30px;
+}
+figure.highlight .table-container {
+  border-radius: 0 0 5px 5px;
+}
+figure.highlight::before {
+  background: #fc625d;
+  box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
+  left: 12px;
+  margin-top: -20px;
+  position: absolute;
+  border-radius: 50%;
+  content: ' ';
+  height: 12px;
+  width: 12px;
+}
 code,
 kbd,
 figure.highlight,
@@ -398,7 +437,7 @@ pre figcaption a:hover {
 }
 pre,
 code {
-  font-family: consolas, Menlo, monospace, 'PingFang SC', 'Microsoft YaHei';
+  font-family: Source Code Pro, consolas, Menlo, monospace, 'PingFang SC', 'Microsoft YaHei';
 }
 code {
   border-radius: 3px;
@@ -972,7 +1011,7 @@ pre code {
   color: var(--brand-hover-color);
 }
 .site-title {
-  font-family: Lato, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: Cinzel Decorative, EB Garamond, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   font-size: 1.375em;
   font-weight: normal;
   line-height: 1.5;
@@ -1052,7 +1091,7 @@ pre code {
 .menu-item a {
   border-bottom: 0;
   display: block;
-  font-size: 0.8125em;
+  font-size: 0.75em;
   transition: border-color 0.2s ease-in-out;
 }
 .menu-item a:hover,
@@ -1082,7 +1121,7 @@ pre code {
 }
 .sidebar-inner {
   color: #999;
-  padding: 320px 10px;
+  padding: 240px 10px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -1115,7 +1154,7 @@ pre code {
   margin-top: 5px;
 }
 .links-of-author a {
-  font-size: 0.8125em;
+  font-size: 0.75em;
 }
 .links-of-author i[class^='fa'] {
   margin-right: 2px;
@@ -1140,7 +1179,7 @@ pre code {
   margin-right: 5px;
 }
 .links-of-blogroll {
-  font-size: 0.8125em;
+  font-size: 0.75em;
 }
 .links-of-blogroll-title {
   font-size: 0.875em;
@@ -1419,7 +1458,7 @@ pre code {
 }
 .languages {
   display: inline-block;
-  font-size: 1.125em;
+  font-size: 1.25em;
   position: relative;
 }
 .languages .lang-select-label span {
@@ -1437,6 +1476,7 @@ pre code {
   color: #f00;
   display: inline-block;
   margin: 0 5px;
+  animation: icon-animate 1.33s ease-in-out infinite;
 }
 @keyframes icon-animate {
   0%, 100% {
@@ -1469,7 +1509,6 @@ pre code {
 }
 .back-to-top span {
   margin-right: 8px;
-  display: none;
 }
 .back-to-top .fa {
   text-align: center;
@@ -1493,6 +1532,16 @@ pre code {
 }
 .back-to-top.back-to-top-on {
   bottom: 30px;
+}
+.reading-progress-bar {
+  --progress: 0;
+  background: #37c6c0;
+  height: 3px;
+  position: fixed;
+  z-index: 50;
+  width: var(--progress);
+  left: 0;
+  bottom: 0;
 }
 .rtl.post-body p,
 .rtl.post-body a,
@@ -1541,7 +1590,7 @@ pre code {
   }
 }
 .posts-collapse .post-content .collection-title {
-  font-size: 1.125em;
+  font-size: 1.25em;
   position: relative;
 }
 .posts-collapse .post-content .collection-title::before {
@@ -1557,7 +1606,7 @@ pre code {
   width: 10px;
 }
 .posts-collapse .post-content .collection-year {
-  font-size: 1.5em;
+  font-size: 1.75em;
   font-weight: bold;
   margin: 60px 0;
   position: relative;
@@ -1593,7 +1642,7 @@ pre code {
   border: 1px solid #fff;
   left: -6px;
   position: absolute;
-  top: 0.75em;
+  top: 0.5em;
   transition: background 0.2s ease-in-out;
   border-radius: 50%;
   content: ' ';
@@ -1608,7 +1657,7 @@ pre code {
 }
 .posts-collapse .post-content .post-meta-container {
   display: inline;
-  font-size: 0.75em;
+  font-size: 0.5em;
   margin-right: 10px;
 }
 .posts-collapse .post-content .post-title {
@@ -1628,12 +1677,12 @@ pre code {
   width: 4px;
 }
 .post-body {
-  font-family: Lato, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: Noto Serif SC, EB Garamond, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   overflow-wrap: break-word;
 }
 @media (min-width: 1200px) {
   .post-body {
-    font-size: 1.125em;
+    font-size: 1.25em;
   }
 }
 @media (min-width: 992px) {
@@ -1773,12 +1822,12 @@ pre code {
   margin: 15px 0;
 }
 .posts-expand .post-header {
-  font-size: 1.125em;
+  font-size: 1.25em;
   margin-bottom: 60px;
   text-align: center;
 }
 .posts-expand .post-title {
-  font-size: 1.5em;
+  font-size: 1.75em;
   font-weight: normal;
   margin: initial;
   overflow-wrap: break-word;
@@ -1814,8 +1863,8 @@ pre code {
 }
 .posts-expand .post-meta-container {
   color: #999;
-  font-family: Lato, 'PingFang SC', 'Microsoft YaHei', sans-serif;
-  font-size: 0.75em;
+  font-family: Noto Serif SC, EB Garamond, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-size: 0.5em;
   margin-top: 3px;
 }
 .posts-expand .post-meta-container .post-description {
@@ -1867,7 +1916,7 @@ pre code {
   top: 2px;
 }
 .post-nav-item .fa {
-  font-size: 0.75em;
+  font-size: 0.5em;
 }
 .post-nav-item:first-child .fa {
   margin-right: 5px;
@@ -1892,13 +1941,31 @@ pre code {
 .post-block:last-of-type .post-eof {
   display: none;
 }
+.post-copyright ul {
+  list-style: none;
+  overflow: hidden;
+  padding: 0.5em 1em;
+  position: relative;
+  background: var(--card-bg-color);
+  border-left: 3px solid #ff2a2a;
+  margin: 1em 0 0;
+}
+.post-copyright ul::after {
+  content: '\f25e';
+  font-family: 'Font Awesome 6 Brands';
+  font-size: 200px;
+  opacity: 0.1;
+  position: absolute;
+  right: -50px;
+  top: -150px;
+}
 .post-tags {
   margin-top: 40px;
   text-align: left;
 }
 .post-tags a {
   display: inline-block;
-  font-size: 0.8125em;
+  font-size: 0.75em;
 }
 .post-tags a:not(:last-child) {
   margin-right: 10px;
@@ -2079,7 +2146,7 @@ pre code {
   }
 }
 ul.breadcrumb {
-  font-size: 0.75em;
+  font-size: 0.5em;
   list-style: none;
   margin: 1em 0;
   padding: 0 2em;
@@ -2376,14 +2443,14 @@ header.header {
 }
 @media (min-width: 1200px) {
   .sidebar-active {
-    padding-right: 300px;
+    padding-right: 320px;
   }
   .sidebar-active .footer-fixed {
-    right: 300px;
+    right: 320px;
   }
 }
 .sidebar {
-  right: -300px;
+  right: -320px;
 }
 .sidebar-active .sidebar {
   right: 0;
@@ -2397,7 +2464,7 @@ header.header {
   position: fixed;
   top: 0;
   transition: all 0.2s ease-out;
-  width: 300px;
+  width: 320px;
   z-index: 20;
 }
 .sidebar a {
@@ -2417,9 +2484,10 @@ header.header {
   margin-bottom: 10px;
   margin-right: 10px;
   vertical-align: middle;
+  transition: all 0.2s ease-in-out;
 }
 .links-of-author a::before {
-  background: #fea632;
+  background: #2aa8ff;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -2468,4 +2536,67 @@ header.header {
 }
 .sub-menu .menu-item {
   display: inline-block;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+body {
+  font-size: 1.2em;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: bold;
+  line-height: 1.5;
+  margin: 30px 0 15px;
+}
+.posts-expand .post-title {
+  font-weight: bold;
+}
+.menu {
+  text-align: right;
+}
+.sidebar {
+  width: 320px;
+  background: rgba(0,0,0,0.9) url("https://raw.githubusercontent.com/richardmyu/gallery/1.0.0/avat/bg_mini.jpg") no-repeat center;
+  background-size: 140%;
+  font-size: 1.25em;
+  font-weight: bold;
+  color: #222;
+  box-shadow: none;
+  opacity: 0.86;
+}
+.sidebar a,
+.sidebar span.exturl {
+  border-bottom-color: #555;
+  border-bottom-width: 0;
+  color: #222;
+}
+.sidebar a:hover,
+.sidebar span.exturl:hover {
+  border-bottom-color: #eee;
+  border-bottom-width: 0;
+  color: #eee;
+}
+.sidebar .site-author .site-author-image {
+  border: 0;
+  max-width: 120px;
+  height: 120px;
+  padding: 0;
+}
+.sidebar .site-author .site-author-name {
+  color: #222;
+  font-weight: bold;
+}
+.sidebar .site-author .site-description {
+  color: #222;
+  font-weight: bold;
+}
+.footer .footer-inner div {
+  text-align: center;
 }
