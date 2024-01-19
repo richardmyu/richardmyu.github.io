@@ -1346,54 +1346,6 @@ pre code {
   top: -6px;
   transform: rotate(45deg);
 }
-.post-toc {
-  font-size: 0.875em;
-}
-.post-toc ol {
-  list-style: none;
-  margin: 0;
-  padding: 0 2px 0 10px;
-  text-align: left;
-}
-.post-toc ol > :last-child {
-  margin-bottom: 5px;
-}
-.post-toc ol > ol {
-  padding-left: 0;
-}
-.post-toc ol a {
-  transition: all 0.2s ease-in-out;
-}
-.post-toc .nav-item {
-  line-height: 1.8;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.post-toc .nav .nav-child {
-  --height: 0;
-  height: 0;
-  opacity: 0;
-  overflow: hidden;
-  transition-property: height, opacity, visibility;
-  transition: 0.2s ease-in-out;
-  visibility: hidden;
-}
-.post-toc .nav .active > .nav-child {
-  height: var(--height, auto);
-  opacity: 1;
-  visibility: unset;
-}
-.post-toc .nav .active > a {
-  border-bottom-color: #87daff;
-  color: #87daff;
-}
-.post-toc .nav .active-current > a {
-  color: #87daff;
-}
-.post-toc .nav .active-current > a:hover {
-  color: #87daff;
-}
 .site-state {
   display: flex;
   flex-wrap: wrap;
@@ -2487,7 +2439,7 @@ header.header {
   transition: all 0.2s ease-in-out;
 }
 .links-of-author a::before {
-  background: #2aa8ff;
+  background: #f229ff;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -2561,7 +2513,7 @@ h6 {
 .menu {
   text-align: right;
 }
-.sidebar {
+.sidebar-inner {
   width: 320px;
   background: rgba(0,0,0,0.9) url("https://raw.githubusercontent.com/richardmyu/gallery/1.0.0/avat/bg_mini.jpg") no-repeat center;
   background-size: 140%;
@@ -2571,31 +2523,39 @@ h6 {
   box-shadow: none;
   opacity: 0.86;
 }
-.sidebar a,
-.sidebar span.exturl {
+.sidebar-inner a,
+.sidebar-inner span.exturl {
   border-bottom-color: #555;
   border-bottom-width: 0;
   color: #222;
 }
-.sidebar a:hover,
-.sidebar span.exturl:hover {
+.sidebar-inner a:hover,
+.sidebar-inner span.exturl:hover {
   border-bottom-color: #eee;
   border-bottom-width: 0;
   color: #eee;
 }
-.sidebar .site-author .site-author-image {
+.sidebar .sidebar-inner {
+  height: 100%;
+  background: rgba(168,168,168,0.7);
+  box-sizing: border-box;
+}
+.sidebar-inner .site-author .site-author-image {
   border: 0;
   max-width: 120px;
   height: 120px;
   padding: 0;
 }
-.sidebar .site-author .site-author-name {
+.sidebar-inner .site-author .site-author-name {
   color: #222;
   font-weight: bold;
 }
-.sidebar .site-author .site-description {
+.sidebar-inner .site-author .site-description {
   color: #222;
   font-weight: bold;
+}
+.sidebar-inner .sidebar-nav li {
+  color: #222;
 }
 .footer .footer-inner div {
   text-align: center;
