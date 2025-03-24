@@ -1091,7 +1091,7 @@ pre code {
 .menu-item a {
   border-bottom: 0;
   display: block;
-  font-size: 0.75em;
+  font-size: 0.8125em;
   transition: border-color 0.2s ease-in-out;
 }
 .menu-item a:hover,
@@ -1154,7 +1154,7 @@ pre code {
   margin-top: 5px;
 }
 .links-of-author a {
-  font-size: 0.75em;
+  font-size: 0.8125em;
 }
 .links-of-author i[class^='fa'] {
   margin-right: 2px;
@@ -1179,7 +1179,7 @@ pre code {
   margin-right: 5px;
 }
 .links-of-blogroll {
-  font-size: 0.75em;
+  font-size: 0.8125em;
 }
 .links-of-blogroll-title {
   font-size: 0.875em;
@@ -1410,7 +1410,7 @@ pre code {
 }
 .languages {
   display: inline-block;
-  font-size: 1.25em;
+  font-size: 1.125em;
   position: relative;
 }
 .languages .lang-select-label span {
@@ -1542,7 +1542,7 @@ pre code {
   }
 }
 .posts-collapse .post-content .collection-title {
-  font-size: 1.25em;
+  font-size: 1.125em;
   position: relative;
 }
 .posts-collapse .post-content .collection-title::before {
@@ -1558,7 +1558,7 @@ pre code {
   width: 10px;
 }
 .posts-collapse .post-content .collection-year {
-  font-size: 1.75em;
+  font-size: 1.5em;
   font-weight: bold;
   margin: 60px 0;
   position: relative;
@@ -1594,7 +1594,7 @@ pre code {
   border: 1px solid #fff;
   left: -6px;
   position: absolute;
-  top: 0.5em;
+  top: 0.75em;
   transition: background 0.2s ease-in-out;
   border-radius: 50%;
   content: ' ';
@@ -1609,7 +1609,7 @@ pre code {
 }
 .posts-collapse .post-content .post-meta-container {
   display: inline;
-  font-size: 0.5em;
+  font-size: 0.75em;
   margin-right: 10px;
 }
 .posts-collapse .post-content .post-title {
@@ -1634,7 +1634,7 @@ pre code {
 }
 @media (min-width: 1200px) {
   .post-body {
-    font-size: 1.25em;
+    font-size: 1.125em;
   }
 }
 @media (min-width: 992px) {
@@ -1774,12 +1774,12 @@ pre code {
   margin: 15px 0;
 }
 .posts-expand .post-header {
-  font-size: 1.25em;
+  font-size: 1.125em;
   margin-bottom: 60px;
   text-align: center;
 }
 .posts-expand .post-title {
-  font-size: 1.75em;
+  font-size: 1.5em;
   font-weight: normal;
   margin: initial;
   overflow-wrap: break-word;
@@ -1816,7 +1816,7 @@ pre code {
 .posts-expand .post-meta-container {
   color: #999;
   font-family: Noto Serif SC, EB Garamond, 'PingFang SC', 'Microsoft YaHei', sans-serif;
-  font-size: 0.5em;
+  font-size: 0.75em;
   margin-top: 3px;
 }
 .posts-expand .post-meta-container .post-description {
@@ -1868,7 +1868,7 @@ pre code {
   top: 2px;
 }
 .post-nav-item .fa {
-  font-size: 0.5em;
+  font-size: 0.75em;
 }
 .post-nav-item:first-child .fa {
   margin-right: 5px;
@@ -1917,7 +1917,7 @@ pre code {
 }
 .post-tags a {
   display: inline-block;
-  font-size: 0.75em;
+  font-size: 0.8125em;
 }
 .post-tags a:not(:last-child) {
   margin-right: 10px;
@@ -2098,7 +2098,7 @@ pre code {
   }
 }
 ul.breadcrumb {
-  font-size: 0.5em;
+  font-size: 0.75em;
   list-style: none;
   margin: 1em 0;
   padding: 0 2em;
@@ -2439,7 +2439,7 @@ header.header {
   transition: all 0.2s ease-in-out;
 }
 .links-of-author a::before {
-  background: #db7c87;
+  background: #b13491;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -2495,7 +2495,7 @@ body {
   height: 100%;
 }
 body {
-  font-size: 1.2em;
+  font-size: 1em;
 }
 h1,
 h2,
@@ -2513,49 +2513,46 @@ h6 {
 .menu {
   text-align: right;
 }
-.sidebar-inner {
+.sidebar .sidebar-inner {
   width: 320px;
+  height: 100%;
+  box-sizing: border-box;
   background: rgba(0,0,0,0.9) url("https://raw.githubusercontent.com/richardmyu/gallery/1.0.0/avat/bg_mini.jpg") no-repeat center;
   background-size: 140%;
-  font-size: 1.25em;
+  font-size: 1.125em;
   font-weight: bold;
   color: #222;
   box-shadow: none;
   opacity: 0.86;
 }
-.sidebar-inner a,
-.sidebar-inner span.exturl {
+.sidebar .sidebar-inner a,
+.sidebar .sidebar-inner span.exturl {
   border-bottom-color: #555;
   border-bottom-width: 0;
   color: #222;
 }
-.sidebar-inner a:hover,
-.sidebar-inner span.exturl:hover {
+.sidebar .sidebar-inner a:hover,
+.sidebar .sidebar-inner span.exturl:hover {
   border-bottom-color: #eee;
   border-bottom-width: 0;
   color: #eee;
 }
-.sidebar .sidebar-inner {
-  height: 100%;
-  background: rgba(168,168,168,0.7);
-  box-sizing: border-box;
+.sidebar .sidebar-inner .sidebar-nav li {
+  color: #222;
 }
-.sidebar-inner .site-author .site-author-image {
+.sidebar .sidebar-inner .site-author .site-author-image {
   border: 0;
   max-width: 120px;
   height: 120px;
   padding: 0;
 }
-.sidebar-inner .site-author .site-author-name {
+.sidebar .sidebar-inner .site-author .site-author-name {
   color: #222;
   font-weight: bold;
 }
-.sidebar-inner .site-author .site-description {
+.sidebar .sidebar-inner .site-author .site-description {
   color: #222;
   font-weight: bold;
-}
-.sidebar-inner .sidebar-nav li {
-  color: #222;
 }
 .footer .footer-inner div {
   text-align: center;
