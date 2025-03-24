@@ -2439,7 +2439,7 @@ header.header {
   transition: all 0.2s ease-in-out;
 }
 .links-of-author a::before {
-  background: #ff1c8a;
+  background: #93ffc4;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -2506,6 +2506,24 @@ h5,
 h6 {
   font-weight: bold;
   margin: 30px 0 15px;
+}
+h1 {
+  font-size: 1.5em;
+}
+h2 {
+  font-size: 1.25em;
+}
+h3 {
+  font-size: 1.125em;
+}
+h4 {
+  font-size: 1em;
+}
+h5 {
+  font-size: 0.875em;
+}
+h6 {
+  font-size: 0.8125em;
 }
 .posts-expand .post-title {
   font-weight: bold;
