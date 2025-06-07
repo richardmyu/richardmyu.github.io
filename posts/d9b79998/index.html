@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favcion-apple.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="/css/highlight/atom-one-dark.min.css">
+
+<link rel="stylesheet" href="https://fonts.geekzu.org/css?family=EB+Garamond:300,300italic,400,400italic,700,700italic%7CCinzel+Decorative:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"richardmyu.github.io","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.19.0","exturl":false,"sidebar":{"position":"right","display":"hide","padding":240,"offset":12,"width":320},"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":null,"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+
+
+<link rel="canonical" href="https://richardmyu.github.io/posts/d9b79998/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://richardmyu.github.io/posts/d9b79998/","path":"posts/d9b79998/","title":"a 链接的 rel 属性探究"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>a 链接的 rel 属性探究 | Serendipity</title>
+  
+
+
+
+
+
+
+
+<link href="https://fonts.loli.net/css2?family=Noto+Serif+SC:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Serendipity</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">悟已往之不谏，知来者之可追</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="yum"
+      src="https://raw.githubusercontent.com/richardmyu/gallery/1.0.0/avat/avatar_min.jpg">
+  <p class="site-author-name" itemprop="name">yum</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/richardmyu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;richardmyu" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/9646027/yum-3fe" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;9646027&#x2F;yum-3fe" rel="noopener me" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richardmyu.github.io/posts/d9b79998/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://raw.githubusercontent.com/richardmyu/gallery/1.0.0/avat/avatar_min.jpg">
+      <meta itemprop="name" content="yum">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Serendipity">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="a 链接的 rel 属性探究 | Serendipity">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          a 链接的 rel 属性探究
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-05-23 01:26:59" itemprop="dateCreated datePublished" datetime="2019-05-23T01:26:59+08:00">2019-05-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-06-07 22:16:01" itemprop="dateModified" datetime="2025-06-07T22:16:01+08:00">2025-06-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/CS/" itemprop="url" rel="index"><span itemprop="name">CS</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>日常打开 github</p>
+<h2 id="偶然的样式问题">偶然的样式问题？</h2>
+<p>发现个人信息的链接有样式问题：</p>
+<figure>
+<img data-src="https://raw.githubusercontent.com/richardmyu/gallery/1.0.0/blog/issues_2/rel_01.png"
+alt="rel_01" />
+<figcaption aria-hidden="true">rel_01</figcaption>
+</figure>
+<p>于是打开控制台查看，发现是由类名 <code>MSI_ext_nofollow</code>
+带来的：</p>
+<figure>
+<img data-src="https://raw.githubusercontent.com/richardmyu/gallery/1.0.0/blog/issues_2/rel_02.png"
+alt="rel_02" />
+<figcaption aria-hidden="true">rel_02</figcaption>
+</figure>
+<p>去掉类名试试：</p>
+<figure>
+<img data-src="https://raw.githubusercontent.com/richardmyu/gallery/1.0.0/blog/issues_2/rel_03.png"
+alt="rel_03" />
+<figcaption aria-hidden="true">rel_03</figcaption>
+</figure>
+<p>再看看页面：</p>
+<figure>
+<img data-src="https://raw.githubusercontent.com/richardmyu/gallery/1.0.0/blog/issues_2/rel_04.png"
+alt="rel_04" />
+<figcaption aria-hidden="true">rel_04</figcaption>
+</figure>
+<p>然后我还发现这一类 a 标签，均带有 <code>rel="nofollow"</code>
+的属性，而其他正常的 a 标签既没有该属性，也没有
+<code>MSI_ext_nofollow</code> 类名，同样的情况我也在拉钩网上见到：</p>
+<figure>
+<img data-src="https://raw.githubusercontent.com/richardmyu/gallery/1.0.0/blog/issues_2/rel_05.png"
+alt="rel_05" />
+<figcaption aria-hidden="true">rel_05</figcaption>
+</figure>
+<figure>
+<img data-src="https://raw.githubusercontent.com/richardmyu/gallery/1.0.0/blog/issues_2/rel_06.png"
+alt="rel_06" />
+<figcaption aria-hidden="true">rel_06</figcaption>
+</figure>
+<p>到这里，就不追问为什么会出现这样的样式问题，我们把重点转向
+<code>rel="nofollw"</code>。</p>
+<h2 id="relnofollow">rel="nofollow"?</h2>
+<h3 id="rel-属性">1.rel 属性</h3>
+<p>rel
+属性指定了目标对象到链接对象的关系。该值是空格分隔的列表类型值。<a
+href="#ck1">[1]</a></p>
+<blockquote>
+<p>Relationship between the location in the document containing the
+hyperlink and the destination resource. <a
+target="_blank" rel="noopener" href="https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-a-element">from</a></p>
+</blockquote>
+<p>The rel attribute specifies the relationship between the current
+document and the linked document.Only used if the href attribute is
+present.<a href="#ck2">[2]</a></p>
+<h3 id="nofollow-定义">2.nofollow 定义</h3>
+<p>nofollow 是一个 HTML 标签（元标签 (meta) 的 content 属性和链接标签
+(a) 的 rel
+属性）的一个属性值。这个标签的意义是告诉搜索引擎“不要追踪此网页上的链接”或“不要追踪此特定链接”。nofollow
+标签是由谷歌领头创新的一个“反垃圾链接”的标签，并被百度、yahoo
+等各大搜索引擎广泛支持，引用 nofollow
+标签的目的是：用于指示搜索引擎不要追踪（即抓取）网页上的带有 nofollow
+属性的任何出站链接，以减少垃圾链接的分散网站权重！<a
+href="#ck3">[3]</a></p>
+<p>但是如果你是通过 sitemap 直接提交该页面，爬虫还是会爬取，这里的
+nofollow 只是当前页对目标页的一种态度，并不代表其他页对目标页的态度。<a
+href="#ck4">[4]</a></p>
+<p>反向链接即外链是搜索引擎给网站排名的一个重要因素。为了添加反向链接，SEO
+作弊者会在论坛和博客等大量发布带无关链接的内容。这些垃圾链接的存在给搜索引擎对网页质量的评估造成一定程度的麻烦，可以说
+nofollow 是一个非常好的“垃圾链接防火墙”。正是百度、谷歌、Yahoo、MSN
+为了应对垃圾链接（Spam
+link）引入的一个属性，此属性应该被广泛采用。在网站中，为 UGC
+中的链接自动添加 nofollow
+属性，是各大网站和站长惯用的方法。因此，用发链接的方法来增加外链，效果已经大打折扣了。<a
+href="#ck3">[3]</a></p>
+<p>一般常见的用法：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">//meta: 告诉爬虫该页面上所有链接都无需追踪</span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;robots&quot;</span> <span class="attr">content</span>=<span class="string">&quot;nofollow&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">// a: 告诉爬虫该页面无需追踪</span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">rel</span>=<span class="string">&quot;nofollow&quot;</span> <span class="attr">href</span>=<span class="string">&quot;......&quot;</span>&gt;</span>链接内容<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">rel</span>=<span class="string">&quot;external nofollow&quot;</span> <span class="attr">href</span>=<span class="string">&quot;......&quot;</span>&gt;</span>链接内容<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="nofollow-用途">3.nofollow 用途</h3>
+<p>nofollow 主要有三个作用：</p>
+<ul>
+<li>1.防止不可信的内容，最常见的是博客上的垃圾留言与评论中为了获取外链的垃圾链接，为了防止页面指向一些拉圾页面和站点。
+&gt;</li>
+<li>2.付费链接：
+很多网站都会在自己的网站投放广告，这些广告链接虽然说要比文本链接（关于文本链接的详情参考常见的链接形式）的效果要小很多，但是这些链接所能传递的权重也是比较高的，因为一般的大型网站和流量网站才有机会来赚广告费。所以在挂网站的时候一定要注意使用nofollow标签，来阻止权重的传递和广告的内容质量的控制。<a
+href="#ck5">[5]</a> &gt;</li>
+<li>3.引导爬虫抓取有效的页面：避免爬虫抓取一些无意义的页面，影响爬虫抓取的效率。</li>
+</ul>
+<h3 id="pr-修剪pagerank-sculpting">4.PR 修剪(Pagerank Sculpting)</h3>
+<h4 id="什么是-pr">4.1.什么是 PR</h4>
+<p>谷歌 PR 是 Page Rank 的简称，PR 值的概念由谷歌的两位创始人 Larry Page
+和 Sergey Brin 开发出来的，Page Rank 就是
+<strong>佩奇级别</strong>，也叫做
+<strong>网页级别</strong>。在当时的互联网界引起了巨大的轰动效应，至今一直被沿用追捧，并且成为网站排名因素当中的一个重要组成部分。<a
+href="#ck6">[6]</a></p>
+<p>PR 值从 1-10 共有 10
+个等级，数字越大，说明该网页越重要越受欢迎，反之亦然。提高 PR
+的主要途径：增加指向你网站的高质量外部链接，以及内部链接，数量和质量越多，所能传递的权重也就越高。<a
+href="#ck6">[6]</a></p>
+<h4 id="pagerank-sculpting">4.2.Pagerank Sculpting</h4>
+<p>nofollow 的滥用，一些 SEO 为了做到搜索引擎的最大优化，通过 nofollow
+来控制 PR
+的流动，可以很好的优化一些特定页面。当然这种优化比较适合一些已经积淀了相当数量
+PR 的老站点。为了防止 PR 修剪和 nofollow 的滥用，Google 已经减弱了
+nofollow 的作用，以前的 nofollow 不仅仅不会造成 PR 流动，同时不会造成 PR
+损失，现在的 nofollow 规定虽然也不会造成 PR
+流向目标页，但是原本流向的目标页的将会损失掉。比方当前页 PR 为
+1，而且页面上有 10个 链接，其中一个是 nofollow 的链接，根据先前的
+nofollow 的规定，每个非 nofollow 链接指向的目标页将获得 1/9 的 PR，含
+nofollow 的链接不能获得 PR，而根据现在 Google 对 nofollow 的新规定，非
+nofollow 链接指向的目标页只能获得 1/10，nofollow 链接同样不能获得
+PR，也就是损失了 1/10 的 PR。<a href="#ck4">[4]</a></p>
+<h2 id="后记">后记</h2>
+<p>现状：国内网站对PR值的依赖越来越小，并且PR值针对国内网站已经很长时间不更新了，对于2013年以后新上的网站来说，已经没有太大的参考价值了。<a
+href="#ck7">[7]</a></p>
+<hr />
+<p>参考:</p>
+<p>1.<a id="ck1" target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/a">
+<code>&lt;a&gt;</code> </a></p>
+<p>2.<a id="ck2" target="_blank" rel="noopener" href="https://www.w3schools.com/TAGS/att_a_rel.asp">HTML
+<code>&lt;a&gt;</code> rel Attribute</a></p>
+<p>3.<a id="ck3" target="_blank" rel="noopener" href="https://www.feiniaomy.com/post/48.html">HTML中的A标签的nofollow属性解读</a></p>
+<p>4.<a id="ck4" target="_blank" rel="noopener" href="http://www.voidcn.com/article/p-bsonqpum-ue.html">"rel=nofollow"属性</a></p>
+<p>5.<a id="ck5" target="_blank" rel="noopener" href="http://blog.sina.com.cn/s/blog_a617797101011tyv.html">rel=”nofollow”的用途</a></p>
+<p>6.<a id="ck6" target="_blank" rel="noopener" href="http://blog.sina.com.cn/s/blog_a617797101011ttq.html">什么是谷歌PR值</a></p>
+<p>7.<a id="ck7" target="_blank" rel="noopener" href="http://www.cnbackyard.com/archives/310">谷歌PR值是什么，百度权重是否重要，如何查询？</a></p>
+<p>8.<a target="_blank" rel="noopener" href="https://ahrefs.com/blog/nofollow-links/">Nofollow vs.
+Follow Links: Everything You Need to Know</a></p>
+<p>9.<a
+target="_blank" rel="noopener" href="https://www.wordstream.com/blog/ws/2013/07/24/follow-nofollow-links">Follow
+Links Vs. No Follow Links: Should You Care?</a></p>
+<p>10.<a
+target="_blank" rel="noopener" href="https://searchengineland.com/infographic-nofollow-tag-172157">Infographic:
+What Is The Nofollow Tag; When &amp; How To Use It</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>yum
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://richardmyu.github.io/posts/d9b79998/" title="a 链接的 rel 属性探究">https://richardmyu.github.io/posts/d9b79998/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/801185b5/" rel="prev" title="getElementsByClassName vs querySelectorAll">
+                  <i class="fa fa-angle-left"></i> getElementsByClassName vs querySelectorAll
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/f607b4cb/" rel="next" title="【书】瓦尔登湖">
+                  【书】瓦尔登湖 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2018 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">yum</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+<script src="/js/highlight.min.js"></script>
+<script>
+  $(function(){
+    $('pre code').each((i, el) => {
+    hljs.highlightElement(el);
+  });
+</script>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
