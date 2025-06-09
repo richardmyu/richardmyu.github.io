@@ -2439,7 +2439,7 @@ header.header {
   transition: all 0.2s ease-in-out;
 }
 .links-of-author a::before {
-  background: #d5ff81;
+  background: #0d6181;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -2574,4 +2574,10 @@ h6 {
 }
 .footer .footer-inner div {
   text-align: center;
+}
+.main .index.posts-expand .post-block .post-body .excerpt_description {
+  display: block;
+}
+.main .post.posts-expand .post-block .post-body .excerpt_description {
+  display: none;
 }
