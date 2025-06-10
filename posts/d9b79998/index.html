@@ -218,137 +218,64 @@
     
     <div class="post-body" itemprop="articleBody"><p>日常打开 github，发现个人信息的链接有样式问题？</p>
 <span id="more"></span>
-<h2 id="偶然的样式问题">偶然的样式问题？</h2>
-<figure>
-<img data-src="https://raw.githubusercontent.com/richardmyu/gallery/1.0.0/blog/issues_2/rel_01.png"
-alt="rel_01" />
-<figcaption aria-hidden="true">rel_01</figcaption>
-</figure>
-<p>于是打开控制台查看，发现是由类名 <code>MSI_ext_nofollow</code>
-带来的：</p>
-<figure>
-<img data-src="https://raw.githubusercontent.com/richardmyu/gallery/1.0.0/blog/issues_2/rel_02.png"
-alt="rel_02" />
-<figcaption aria-hidden="true">rel_02</figcaption>
-</figure>
+<h2>偶然的样式问题？</h2>
+<p><img data-src="https://raw.githubusercontent.com/richardmyu/gallery/1.0.0/blog/issues_2/rel_01.png" alt="rel_01"></p>
+<p>于是打开控制台查看，发现是由类名 <code>MSI_ext_nofollow</code> 带来的：</p>
+<p><img data-src="https://raw.githubusercontent.com/richardmyu/gallery/1.0.0/blog/issues_2/rel_02.png" alt="rel_02"></p>
 <p>去掉类名试试：</p>
-<figure>
-<img data-src="https://raw.githubusercontent.com/richardmyu/gallery/1.0.0/blog/issues_2/rel_03.png"
-alt="rel_03" />
-<figcaption aria-hidden="true">rel_03</figcaption>
-</figure>
+<p><img data-src="https://raw.githubusercontent.com/richardmyu/gallery/1.0.0/blog/issues_2/rel_03.png" alt="rel_03"></p>
 <p>再看看页面：</p>
-<figure>
-<img data-src="https://raw.githubusercontent.com/richardmyu/gallery/1.0.0/blog/issues_2/rel_04.png"
-alt="rel_04" />
-<figcaption aria-hidden="true">rel_04</figcaption>
-</figure>
-<p>然后我还发现这一类 a 标签，均带有 <code>rel="nofollow"</code>
-的属性，而其他正常的 a 标签既没有该属性，也没有
-<code>MSI_ext_nofollow</code> 类名，同样的情况我也在拉钩网上见到：</p>
-<figure>
-<img data-src="https://raw.githubusercontent.com/richardmyu/gallery/1.0.0/blog/issues_2/rel_05.png"
-alt="rel_05" />
-<figcaption aria-hidden="true">rel_05</figcaption>
-</figure>
-<figure>
-<img data-src="https://raw.githubusercontent.com/richardmyu/gallery/1.0.0/blog/issues_2/rel_06.png"
-alt="rel_06" />
-<figcaption aria-hidden="true">rel_06</figcaption>
-</figure>
-<p>到这里，就不追问为什么会出现这样的样式问题，我们把重点转向
-<code>rel="nofollw"</code>。</p>
-<h2 id="relnofollow">rel="nofollow"?</h2>
-<h3 id="rel-属性">1.rel 属性</h3>
-<p>rel
-属性指定了目标对象到链接对象的关系。该值是空格分隔的列表类型值。<a
-href="#ck1">[1]</a></p>
+<p><img data-src="https://raw.githubusercontent.com/richardmyu/gallery/1.0.0/blog/issues_2/rel_04.png" alt="rel_04"></p>
+<p>然后我还发现这一类 a 标签，均带有 <code>rel=&quot;nofollow&quot;</code> 的属性，而其他正常的 a 标签既没有该属性，也没有 <code>MSI_ext_nofollow</code> 类名，同样的情况我也在拉钩网上见到：</p>
+<p><img data-src="https://raw.githubusercontent.com/richardmyu/gallery/1.0.0/blog/issues_2/rel_05.png" alt="rel_05"></p>
+<p><img data-src="https://raw.githubusercontent.com/richardmyu/gallery/1.0.0/blog/issues_2/rel_06.png" alt="rel_06"></p>
+<p>到这里，就不追问为什么会出现这样的样式问题，我们把重点转向 <code>rel=&quot;nofollw&quot;</code>。</p>
+<h2>rel=“nofollow”?</h2>
+<h3>1.rel 属性</h3>
+<p>rel 属性指定了目标对象到链接对象的关系。该值是空格分隔的列表类型值。<a href="#ck1">[1]</a></p>
 <blockquote>
-<p>Relationship between the location in the document containing the
-hyperlink and the destination resource. <a
-target="_blank" rel="noopener" href="https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-a-element">from</a></p>
+<p>Relationship between the location in the document containing the hyperlink and the destination resource. <a target="_blank" rel="noopener" href="https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-a-element">from</a></p>
 </blockquote>
-<p>The rel attribute specifies the relationship between the current
-document and the linked document.Only used if the href attribute is
-present.<a href="#ck2">[2]</a></p>
-<h3 id="nofollow-定义">2.nofollow 定义</h3>
-<p>nofollow 是一个 HTML 标签（元标签 (meta) 的 content 属性和链接标签
-(a) 的 rel
-属性）的一个属性值。这个标签的意义是告诉搜索引擎“不要追踪此网页上的链接”或“不要追踪此特定链接”。nofollow
-标签是由谷歌领头创新的一个“反垃圾链接”的标签，并被百度、yahoo
-等各大搜索引擎广泛支持，引用 nofollow
-标签的目的是：用于指示搜索引擎不要追踪（即抓取）网页上的带有 nofollow
-属性的任何出站链接，以减少垃圾链接的分散网站权重！<a
-href="#ck3">[3]</a></p>
-<p>但是如果你是通过 sitemap 直接提交该页面，爬虫还是会爬取，这里的
-nofollow 只是当前页对目标页的一种态度，并不代表其他页对目标页的态度。<a
-href="#ck4">[4]</a></p>
-<p>反向链接即外链是搜索引擎给网站排名的一个重要因素。为了添加反向链接，SEO
-作弊者会在论坛和博客等大量发布带无关链接的内容。这些垃圾链接的存在给搜索引擎对网页质量的评估造成一定程度的麻烦，可以说
-nofollow 是一个非常好的“垃圾链接防火墙”。正是百度、谷歌、Yahoo、MSN
-为了应对垃圾链接（Spam
-link）引入的一个属性，此属性应该被广泛采用。在网站中，为 UGC
-中的链接自动添加 nofollow
-属性，是各大网站和站长惯用的方法。因此，用发链接的方法来增加外链，效果已经大打折扣了。<a
-href="#ck3">[3]</a></p>
+<p>The rel attribute specifies the relationship between the current document and the linked document.Only used if the href attribute is present.<a href="#ck2">[2]</a></p>
+<h3>2.nofollow 定义</h3>
+<p>nofollow 是一个 HTML 标签（元标签 (meta) 的 content 属性和链接标签 (a) 的 rel 属性）的一个属性值。这个标签的意义是告诉搜索引擎“不要追踪此网页上的链接”或“不要追踪此特定链接”。nofollow 标签是由谷歌领头创新的一个“反垃圾链接”的标签，并被百度、yahoo 等各大搜索引擎广泛支持，引用 nofollow 标签的目的是：用于指示搜索引擎不要追踪（即抓取）网页上的带有 nofollow 属性的任何出站链接，以减少垃圾链接的分散网站权重！<a href="#ck3">[3]</a></p>
+<p>但是如果你是通过 sitemap 直接提交该页面，爬虫还是会爬取，这里的 nofollow 只是当前页对目标页的一种态度，并不代表其他页对目标页的态度。<a href="#ck4">[4]</a></p>
+<p>反向链接即外链是搜索引擎给网站排名的一个重要因素。为了添加反向链接，SEO 作弊者会在论坛和博客等大量发布带无关链接的内容。这些垃圾链接的存在给搜索引擎对网页质量的评估造成一定程度的麻烦，可以说 nofollow 是一个非常好的“垃圾链接防火墙”。正是百度、谷歌、Yahoo、MSN 为了应对垃圾链接（Spam link）引入的一个属性，此属性应该被广泛采用。在网站中，为 UGC 中的链接自动添加 nofollow 属性，是各大网站和站长惯用的方法。因此，用发链接的方法来增加外链，效果已经大打折扣了。<a href="#ck3">[3]</a></p>
 <p>一般常见的用法：</p>
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- meta: 告诉爬虫该页面上所有链接都无需追踪 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;robots&quot;</span> <span class="attr">content</span>=<span class="string">&quot;nofollow&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- a: 告诉爬虫该页面无需追踪 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">rel</span>=<span class="string">&quot;nofollow&quot;</span> <span class="attr">href</span>=<span class="string">&quot;......&quot;</span>&gt;</span>链接内容<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">rel</span>=<span class="string">&quot;external nofollow&quot;</span> <span class="attr">href</span>=<span class="string">&quot;......&quot;</span>&gt;</span>链接内容<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="nofollow-用途">3.nofollow 用途</h3>
+<h3>3.nofollow 用途</h3>
 <p>nofollow 主要有三个作用：</p>
 <ul>
-<li>1.防止不可信的内容，最常见的是博客上的垃圾留言与评论中为了获取外链的垃圾链接，为了防止页面指向一些拉圾页面和站点。
-&gt;</li>
-<li>2.付费链接：
-很多网站都会在自己的网站投放广告，这些广告链接虽然说要比文本链接（关于文本链接的详情参考常见的链接形式）的效果要小很多，但是这些链接所能传递的权重也是比较高的，因为一般的大型网站和流量网站才有机会来赚广告费。所以在挂网站的时候一定要注意使用nofollow标签，来阻止权重的传递和广告的内容质量的控制。<a
-href="#ck5">[5]</a> &gt;</li>
+<li>1.防止不可信的内容，最常见的是博客上的垃圾留言与评论中为了获取外链的垃圾链接，为了防止页面指向一些拉圾页面和站点。</li>
+</ul>
+<blockquote></blockquote>
+<ul>
+<li>2.付费链接： 很多网站都会在自己的网站投放广告，这些广告链接虽然说要比文本链接（关于文本链接的详情参考常见的链接形式）的效果要小很多，但是这些链接所能传递的权重也是比较高的，因为一般的大型网站和流量网站才有机会来赚广告费。所以在挂网站的时候一定要注意使用nofollow标签，来阻止权重的传递和广告的内容质量的控制。<a href="#ck5">[5]</a></li>
+</ul>
+<blockquote></blockquote>
+<ul>
 <li>3.引导爬虫抓取有效的页面：避免爬虫抓取一些无意义的页面，影响爬虫抓取的效率。</li>
 </ul>
-<h3 id="pr-修剪pagerank-sculpting">4.PR 修剪(Pagerank Sculpting)</h3>
-<h4 id="什么是-pr">4.1.什么是 PR</h4>
-<p>谷歌 PR 是 Page Rank 的简称，PR 值的概念由谷歌的两位创始人 Larry Page
-和 Sergey Brin 开发出来的，Page Rank 就是
-<strong>佩奇级别</strong>，也叫做
-<strong>网页级别</strong>。在当时的互联网界引起了巨大的轰动效应，至今一直被沿用追捧，并且成为网站排名因素当中的一个重要组成部分。<a
-href="#ck6">[6]</a></p>
-<p>PR 值从 1-10 共有 10
-个等级，数字越大，说明该网页越重要越受欢迎，反之亦然。提高 PR
-的主要途径：增加指向你网站的高质量外部链接，以及内部链接，数量和质量越多，所能传递的权重也就越高。<a
-href="#ck6">[6]</a></p>
-<h4 id="pagerank-sculpting">4.2.Pagerank Sculpting</h4>
-<p>nofollow 的滥用，一些 SEO 为了做到搜索引擎的最大优化，通过 nofollow
-来控制 PR
-的流动，可以很好的优化一些特定页面。当然这种优化比较适合一些已经积淀了相当数量
-PR 的老站点。为了防止 PR 修剪和 nofollow 的滥用，Google 已经减弱了
-nofollow 的作用，以前的 nofollow 不仅仅不会造成 PR 流动，同时不会造成 PR
-损失，现在的 nofollow 规定虽然也不会造成 PR
-流向目标页，但是原本流向的目标页的将会损失掉。比方当前页 PR 为
-1，而且页面上有 10个 链接，其中一个是 nofollow 的链接，根据先前的
-nofollow 的规定，每个非 nofollow 链接指向的目标页将获得 1/9 的 PR，含
-nofollow 的链接不能获得 PR，而根据现在 Google 对 nofollow 的新规定，非
-nofollow 链接指向的目标页只能获得 1/10，nofollow 链接同样不能获得
-PR，也就是损失了 1/10 的 PR。<a href="#ck4">[4]</a></p>
-<h2 id="后记">后记</h2>
-<p>现状：国内网站对PR值的依赖越来越小，并且PR值针对国内网站已经很长时间不更新了，对于2013年以后新上的网站来说，已经没有太大的参考价值了。<a
-href="#ck7">[7]</a></p>
-<hr />
+<h3><a target="_blank" rel="noopener" href="http://4.PR">4.PR</a> 修剪(Pagerank Sculpting)</h3>
+<h4>4.1.什么是 PR</h4>
+<p>谷歌 PR 是 Page Rank 的简称，PR 值的概念由谷歌的两位创始人 Larry Page 和 Sergey Brin 开发出来的，Page Rank 就是 <strong>佩奇级别</strong>，也叫做 <strong>网页级别</strong>。在当时的互联网界引起了巨大的轰动效应，至今一直被沿用追捧，并且成为网站排名因素当中的一个重要组成部分。<a href="#ck6">[6]</a></p>
+<p>PR 值从 1-10 共有 10 个等级，数字越大，说明该网页越重要越受欢迎，反之亦然。提高 PR 的主要途径：增加指向你网站的高质量外部链接，以及内部链接，数量和质量越多，所能传递的权重也就越高。<a href="#ck6">[6]</a></p>
+<h4>4.2.Pagerank Sculpting</h4>
+<p>nofollow 的滥用，一些 SEO 为了做到搜索引擎的最大优化，通过 nofollow 来控制 PR 的流动，可以很好的优化一些特定页面。当然这种优化比较适合一些已经积淀了相当数量 PR 的老站点。为了防止 PR 修剪和 nofollow 的滥用，Google 已经减弱了 nofollow 的作用，以前的 nofollow 不仅仅不会造成 PR 流动，同时不会造成 PR 损失，现在的 nofollow 规定虽然也不会造成 PR 流向目标页，但是原本流向的目标页的将会损失掉。比方当前页 PR 为 1，而且页面上有 10个 链接，其中一个是 nofollow 的链接，根据先前的 nofollow 的规定，每个非 nofollow 链接指向的目标页将获得 1/9 的 PR，含 nofollow 的链接不能获得 PR，而根据现在 Google 对 nofollow 的新规定，非 nofollow 链接指向的目标页只能获得 1/10，nofollow 链接同样不能获得 PR，也就是损失了 1/10 的 PR。<a href="#ck4">[4]</a></p>
+<h2>后记</h2>
+<p>现状：国内网站对PR值的依赖越来越小，并且PR值针对国内网站已经很长时间不更新了，对于2013年以后新上的网站来说，已经没有太大的参考价值了。<a href="#ck7">[7]</a></p>
+<hr>
 <p>参考:</p>
-<p>1.<a id="ck1" target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/a">
-<code>&lt;a&gt;</code> </a></p>
-<p>2.<a id="ck2" target="_blank" rel="noopener" href="https://www.w3schools.com/TAGS/att_a_rel.asp">HTML
-<code>&lt;a&gt;</code> rel Attribute</a></p>
+<p>1.<a id="ck1" target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/a"> <code>&lt;a&gt;</code> </a></p>
+<p>2.<a id="ck2" target="_blank" rel="noopener" href="https://www.w3schools.com/TAGS/att_a_rel.asp">HTML <code>&lt;a&gt;</code> rel Attribute</a></p>
 <p>3.<a id="ck3" target="_blank" rel="noopener" href="https://www.feiniaomy.com/post/48.html">HTML中的A标签的nofollow属性解读</a></p>
-<p>4.<a id="ck4" target="_blank" rel="noopener" href="http://www.voidcn.com/article/p-bsonqpum-ue.html">"rel=nofollow"属性</a></p>
+<p>4.<a id="ck4" target="_blank" rel="noopener" href="http://www.voidcn.com/article/p-bsonqpum-ue.html">&quot;rel=nofollow&quot;属性</a></p>
 <p>5.<a id="ck5" target="_blank" rel="noopener" href="http://blog.sina.com.cn/s/blog_a617797101011tyv.html">rel=”nofollow”的用途</a></p>
 <p>6.<a id="ck6" target="_blank" rel="noopener" href="http://blog.sina.com.cn/s/blog_a617797101011ttq.html">什么是谷歌PR值</a></p>
 <p>7.<a id="ck7" target="_blank" rel="noopener" href="http://www.cnbackyard.com/archives/310">谷歌PR值是什么，百度权重是否重要，如何查询？</a></p>
-<p>8.<a target="_blank" rel="noopener" href="https://ahrefs.com/blog/nofollow-links/">Nofollow vs.
-Follow Links: Everything You Need to Know</a></p>
-<p>9.<a
-target="_blank" rel="noopener" href="https://www.wordstream.com/blog/ws/2013/07/24/follow-nofollow-links">Follow
-Links Vs. No Follow Links: Should You Care?</a></p>
-<p>10.<a
-target="_blank" rel="noopener" href="https://searchengineland.com/infographic-nofollow-tag-172157">Infographic:
-What Is The Nofollow Tag; When &amp; How To Use It</a></p>
+<p>8.<a target="_blank" rel="noopener" href="https://ahrefs.com/blog/nofollow-links/">Nofollow vs. Follow Links: Everything You Need to Know</a></p>
+<p>9.<a target="_blank" rel="noopener" href="https://www.wordstream.com/blog/ws/2013/07/24/follow-nofollow-links">Follow Links Vs. No Follow Links: Should You Care?</a></p>
+<p>10.<a target="_blank" rel="noopener" href="https://searchengineland.com/infographic-nofollow-tag-172157">Infographic: What Is The Nofollow Tag; When &amp; How To Use It</a></p>
 
     </div>
 
