@@ -2439,7 +2439,7 @@ header.header {
   transition: all 0.2s ease-in-out;
 }
 .links-of-author a::before {
-  background: #372624;
+  background: #08f99a;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -2557,8 +2557,8 @@ h6 {
   border-bottom-width: 0;
   color: #eee;
 }
-.sidebar .sidebar-inner .sidebar-nav li {
-  color: #222;
+.sidebar .sidebar-inner .sidebar-nav {
+  height: 36px;
 }
 .sidebar .sidebar-inner .site-author .site-author-image {
   border: 0;
