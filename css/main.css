@@ -2439,7 +2439,7 @@ header.header {
   transition: all 0.2s ease-in-out;
 }
 .links-of-author a::before {
-  background: #d21adb;
+  background: #9eb5f7;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -2533,7 +2533,8 @@ h6 {
 }
 .sidebar .sidebar-inner {
   width: 320px;
-  height: calc(($sidebar-desktop / 3 * 4));
+  height: 100%;
+  padding: 200px 10px;
   box-sizing: border-box;
   background: rgba(0,0,0,0.9) url("https://raw.githubusercontent.com/richardmyu/gallery/1.0.0/avat/bg_mini.jpg") no-repeat center;
   background-size: 140%;
@@ -2542,6 +2543,7 @@ h6 {
   color: #222;
   box-shadow: none;
   opacity: 0.86;
+  filter: blur(3px);
 }
 .sidebar .sidebar-inner a,
 .sidebar .sidebar-inner span.exturl {
