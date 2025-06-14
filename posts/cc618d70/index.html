@@ -118,7 +118,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">48</span>
+          <span class="site-state-item-count">49</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -129,7 +129,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -223,28 +223,49 @@
     
     <div class="post-body" itemprop="articleBody"><p>未完待续。。。</p>
 <span id="more"></span>
-<p>今天打开项目，偶然间发现导航栏的按钮 tab 有时候会有一个特殊效果(element-ui 的 el-tab 组件)：</p>
-<p><img data-src="https://raw.githubusercontent.com/richardmyu/gallery/1.0.0/blog/issues_9/tab_focus_01.jpg" alt="tab-focus" /></p>
-<p>我记得我们项目好像没有设置过这种效果呀，而且，这种效果在我们点击 <code>tab</code> 的时候，只是偶尔出现，这就让我更好奇了。</p>
-<p>尝试点击好几次，都没有复现，然后就用 <kbd>Tab</kbd> 键按了几下，果然复现，我立即打开控制台。。。样式竟然没了，我再试了一次，只要点击任何地方，那个特殊的样式就会消失，我感觉这可能跟焦点有关。</p>
-<p>提前在控制台锁定目标元素，使用 <kbd>Tab</kbd> 键切换到目标，然后发现目标元素被被加上一个 <code>is-focus</code> 的类名，当然，同类的其他 <code>tab</code> 也有，可能与这个类名有关，但不太可能直接由这个类名引起，所以还得再看看样式，果然就发现了问题：</p>
-<p><img data-src="https://raw.githubusercontent.com/richardmyu/gallery/1.0.0/blog/issues_9/tab_focus_02.jpg" alt="tab-focus" /></p>
-<p><code>tab</code> 聚焦以后就会有这个效果，确实也与 <code>is-focus</code> 有间接关系，这个有关是 element-ui 做的处理。然后就去查查相关资料，一探究竟，也在此做个记录。</p>
-<h2 id="1focus-简介1"><a class="markdownIt-Anchor" href="#1focus-简介1"></a> 1.<code>focus</code> 简介[1]</h2>
-<p>一个 <code>HTML</code> 用户界面通常包括多个交互式控件，诸如表单控件，可滚动区域，链接，对话框，浏览器标签，等等的。这些窗口小部件形成一个层次结构，其中一些窗口小部件（例如浏览器选项卡，对话框）包含其他窗口小部件（例如链接，表单控件）。</p>
+<p>今天打开项目，偶然间发现导航栏的按钮 tab
+有时候会有一个特殊效果(element-ui 的 el-tab 组件)：</p>
+<figure>
+<img data-src="https://raw.githubusercontent.com/richardmyu/gallery/1.0.0/blog/issues_9/tab_focus_01.jpg"
+alt="tab-focus" />
+<figcaption aria-hidden="true">tab-focus</figcaption>
+</figure>
+<p>我记得我们项目好像没有设置过这种效果呀，而且，这种效果在我们点击
+<code>tab</code> 的时候，只是偶尔出现，这就让我更好奇了。</p>
+<p>尝试点击好几次，都没有复现，然后就用 <kbd>Tab</kbd>
+键按了几下，果然复现，我立即打开控制台。。。样式竟然没了，我再试了一次，只要点击任何地方，那个特殊的样式就会消失，我感觉这可能跟焦点有关。</p>
+<p>提前在控制台锁定目标元素，使用 <kbd>Tab</kbd>
+键切换到目标，然后发现目标元素被被加上一个 <code>is-focus</code>
+的类名，当然，同类的其他 <code>tab</code>
+也有，可能与这个类名有关，但不太可能直接由这个类名引起，所以还得再看看样式，果然就发现了问题：</p>
+<figure>
+<img data-src="https://raw.githubusercontent.com/richardmyu/gallery/1.0.0/blog/issues_9/tab_focus_02.jpg"
+alt="tab-focus" />
+<figcaption aria-hidden="true">tab-focus</figcaption>
+</figure>
+<p><code>tab</code> 聚焦以后就会有这个效果，确实也与
+<code>is-focus</code> 有间接关系，这个有关是 element-ui
+做的处理。然后就去查查相关资料，一探究竟，也在此做个记录。</p>
+<h2 id="focus-简介1">1.<code>focus</code> 简介[1]</h2>
+<p>一个 <code>HTML</code>
+用户界面通常包括多个交互式控件，诸如表单控件，可滚动区域，链接，对话框，浏览器标签，等等的。这些窗口小部件形成一个层次结构，其中一些窗口小部件（例如浏览器选项卡，对话框）包含其他窗口小部件（例如链接，表单控件）。</p>
 <p>当使用键盘与界面进行交互时，键输入从系统通过交互式窗口小部件的层次结构被引导到一个活动的窗口小部件，就称该窗口小部件获得焦点。</p>
 <blockquote>
 <p>键盘事件总是针对的是当前焦点元素。</p>
 </blockquote>
-<h2 id="2focus"><a class="markdownIt-Anchor" href="#2focus"></a> 2.<code>:focus</code></h2>
-<p><code>CSS</code> 伪类 <code>:focus</code> 表示获得焦点的元素（如表单输入）。当用户点击或触摸元素或通过键盘的 “<code>tab</code>” 键选择它时会被触发。</p>
+<h2 id="focus">2.<code>:focus</code></h2>
+<p><code>CSS</code> 伪类 <code>:focus</code>
+表示获得焦点的元素（如表单输入）。当用户点击或触摸元素或通过键盘的
+“<code>tab</code>” 键选择它时会被触发。</p>
 <blockquote>
-<p>提示：此伪类仅适用于焦点元素本身。如果要选择包含焦点元素的元素，请使用 <code>:focus-within</code>。</p>
+<p>提示：此伪类仅适用于焦点元素本身。如果要选择包含焦点元素的元素，请使用
+<code>:focus-within</code>。</p>
 </blockquote>
 <p>先介绍一下键盘访问网站的常用操作[2]：</p>
 <ul>
 <li><kbd>Tab</kbd> 键索引控件元素</li>
-<li><kbd>Enter</kbd> 键触发当前处于 <code>focus</code> 状态的点击行为</li>
+<li><kbd>Enter</kbd> 键触发当前处于 <code>focus</code>
+状态的点击行为</li>
 <li><kbd>Space</kbd> 空白键滚动一屏网页；</li>
 <li><kbd>Home</kbd> 键返回顶部；</li>
 <li><kbd>End</kbd> 键滚动到底部；</li>
@@ -252,57 +273,87 @@
 <blockquote>
 <p>当然，使用 vimium 插件，功能更多 0^0</p>
 </blockquote>
-<p>其中 <kbd>Tab</kbd> 键索引和 <kbd>Enter</kbd> 键点击是与交互相关的最重要的两个键盘行为。</p>
-<p>一般的操作行为是这样的，先 <kbd>Tab</kbd> 键，按次序不断切换 <code>focus</code> 控件元素（包括链接，按钮，输入框等表单元素或者 <code>focus</code> 设置了 <code>tabindex</code> 的普通元素）；处于 <code>focus</code> 状态元素，浏览器一般会通过虚框或者外发光的形式进行区分和提示，此时我们在按下 <kbd>Enter</kbd> 回车键，就相当于鼠标点击了这个元素，从而可以前往我们想去的目的地，或者执行我们想要的交互效果。<code>focus</code> 状态元素的标记默认全部都是使用 <code>outline</code> 属性[2]。</p>
+<p>其中 <kbd>Tab</kbd> 键索引和 <kbd>Enter</kbd>
+键点击是与交互相关的最重要的两个键盘行为。</p>
+<p>一般的操作行为是这样的，先 <kbd>Tab</kbd> 键，按次序不断切换
+<code>focus</code> 控件元素（包括链接，按钮，输入框等表单元素或者
+<code>focus</code> 设置了 <code>tabindex</code> 的普通元素）；处于
+<code>focus</code>
+状态元素，浏览器一般会通过虚框或者外发光的形式进行区分和提示，此时我们在按下
+<kbd>Enter</kbd>
+回车键，就相当于鼠标点击了这个元素，从而可以前往我们想去的目的地，或者执行我们想要的交互效果。<code>focus</code>
+状态元素的标记默认全部都是使用 <code>outline</code> 属性[2]。</p>
 <p>那么，元素能获得焦点的条件是什么呢？</p>
-<p>1.它的<strong>顶层浏览上下文</strong>(top-level browsing context) 具有系统焦点，但它本身不是一个<strong>浏览上下文容器</strong>(browsing context container)；</p>
+<p>1.它的<strong>顶层浏览上下文</strong>(top-level browsing context)
+具有系统焦点，但它本身不是一个<strong>浏览上下文容器</strong>(browsing
+context container)；</p>
 <blockquote>
-<p><a target="_blank" rel="noopener" href="https://html.spec.whatwg.org/multipage/browsers.html#browsing-context">浏览上下文(browsing context)</a></p>
-<blockquote>
-<p>A browsing context is an environment in which Document objects are presented to the user.</p>
-</blockquote>
-</blockquote>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="https://html.spec.whatwg.org/multipage/browsers.html#browsing-context-container">浏览上下文容器(browsing context container)</a></p>
-<blockquote>
-<p>Certain elements (for example, iframe elements) can instantiate further browsing contexts. These elements are called browsing context containers.</p>
-</blockquote>
+<p><a
+target="_blank" rel="noopener" href="https://html.spec.whatwg.org/multipage/browsers.html#browsing-context">浏览上下文(browsing
+context)</a> &gt; A browsing context is an environment in which Document
+objects are presented to the user.</p>
 </blockquote>
 <blockquote>
-<p><a target="_blank" rel="noopener" href="https://html.spec.whatwg.org/multipage/browsers.html#top-level-browsing-context">顶层浏览上下文(top-level browsing context)</a></p>
-<blockquote>
-<p>A browsing context that has no parent browsing context is the top-level browsing context for itself and all of the browsing contexts for which it is an ancestor browsing context.</p>
+<p><a
+target="_blank" rel="noopener" href="https://html.spec.whatwg.org/multipage/browsers.html#browsing-context-container">浏览上下文容器(browsing
+context container)</a> &gt; Certain elements (for example, iframe
+elements) can instantiate further browsing contexts. These elements are
+called browsing context containers.</p>
 </blockquote>
+<blockquote>
+<p><a
+target="_blank" rel="noopener" href="https://html.spec.whatwg.org/multipage/browsers.html#top-level-browsing-context">顶层浏览上下文(top-level
+browsing context)</a> &gt; A browsing context that has no parent
+browsing context is the top-level browsing context for itself and all of
+the browsing contexts for which it is an ancestor browsing context.</p>
 </blockquote>
 <p>2.至少满足以下条件之一：</p>
 <ul>
-<li>1.它是<strong>顶级浏览上下文</strong>当前焦点区域的焦点链中列出的元素之一；</li>
+<li>1.它是<strong>顶级浏览上下文</strong>当前焦点区域的焦点链中列出的元素之一；
+&gt;</li>
+<li>2.它的<strong>影子根</strong>(<code>shadowRoot</code>)不是空的，<code>shadowRoot</code>
+是至少一个有焦点的元素的根</li>
 </ul>
-<blockquote></blockquote>
-<ul>
-<li>2.它的<strong>影子根</strong>(<code>shadowRoot</code>)不是空的，<code>shadowRoot</code> 是至少一个有焦点的元素的根</li>
-</ul>
-<p>呃。。。好难懂。。。我也没怎么懂，没关系，先放着，慢慢理解。在后面在深入理解 <code>browsing-context</code> 和 <code>shadowRoot</code> 以后再回头看吧。</p>
+<p>呃。。。好难懂。。。我也没怎么懂，没关系，先放着，慢慢理解。在后面在深入理解
+<code>browsing-context</code> 和 <code>shadowRoot</code>
+以后再回头看吧。</p>
 <p>一般来说，可以获得焦点的元素：</p>
-<p>1.有 <code>href</code> 属性 的 <code>a</code> 标签（没有会被忽略）</p>
+<p>1.有 <code>href</code> 属性 的 <code>a</code>
+标签（没有会被忽略）</p>
 <p>2.<code>input</code>，<code>button</code> 等表单元素</p>
 <p>3.<code>iframe</code></p>
 <p>4.指定了 <code>tabindex</code> 属性的普通元素</p>
 <hr />
 <p>参考：</p>
-<p>1.<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/:focus">:focus</a></p>
-<p>2.<a target="_blank" rel="noopener" href="https://www.zhangxinxu.com/wordpress/2017/04/css-focus-js-improve-accessibility-keyboard/">CSS :focus 伪类 JS focus 事件提高网站键盘可访问性</a></p>
-<p>3.<a target="_blank" rel="noopener" href="https://html.spec.whatwg.org/multipage/semantics-other.html#selector-focus">:focus</a></p>
-<p>4.<a target="_blank" rel="noopener" href="https://github.com/whatwg/html/issues/2322">About the term “top-level-browsing-context” #2322</a></p>
-<p>5.<a target="_blank" rel="noopener" href="https://html.spec.whatwg.org/multipage/interaction.html#focus">Focus</a></p>
-<p>6.<a target="_blank" rel="noopener" href="https://zh.javascript.info/focus-blur">聚焦：focus/blur</a></p>
-<p>7.<a target="_blank" rel="noopener" href="https://harttle.land/2018/05/17/hover-active-focus-highlight-color.html">点击态样式：focus, active, hover 的区别与兼容性</a></p>
-<p>8.<a target="_blank" rel="noopener" href="https://www.zhangxinxu.com/wordpress/2017/05/html-tabindex/">HTML tabindex属性与web网页键盘无障碍访问</a></p>
+<p>1.<a
+target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/:focus">:focus</a></p>
+<p>2.<a
+target="_blank" rel="noopener" href="https://www.zhangxinxu.com/wordpress/2017/04/css-focus-js-improve-accessibility-keyboard/">CSS
+:focus 伪类 JS focus 事件提高网站键盘可访问性</a></p>
+<p>3.<a
+target="_blank" rel="noopener" href="https://html.spec.whatwg.org/multipage/semantics-other.html#selector-focus">:focus</a></p>
+<p>4.<a target="_blank" rel="noopener" href="https://github.com/whatwg/html/issues/2322">About the term
+"top-level-browsing-context" #2322</a></p>
+<p>5.<a
+target="_blank" rel="noopener" href="https://html.spec.whatwg.org/multipage/interaction.html#focus">Focus</a></p>
+<p>6.<a
+target="_blank" rel="noopener" href="https://zh.javascript.info/focus-blur">聚焦：focus/blur</a></p>
+<p>7.<a
+target="_blank" rel="noopener" href="https://harttle.land/2018/05/17/hover-active-focus-highlight-color.html">点击态样式：focus,
+active, hover 的区别与兼容性</a></p>
+<p>8.<a
+target="_blank" rel="noopener" href="https://www.zhangxinxu.com/wordpress/2017/05/html-tabindex/">HTML
+tabindex属性与web网页键盘无障碍访问</a></p>
 <hr />
-<p>1.<a target="_blank" rel="noopener" href="https://www.zhangxinxu.com/wordpress/2019/03/css-focus-visible/">CSS :focus-visible伪类让我感动哭了</a></p>
-<p>2.<a target="_blank" rel="noopener" href="https://www.zhangxinxu.com/wordpress/2013/02/study-span-a-element-keyboard-focusable-clickable/">span与a元素的键盘聚焦性以及键盘点击性研究</a></p>
-<p>3.<a target="_blank" rel="noopener" href="https://www.zhangxinxu.com/wordpress/2010/09/%e5%85%b3%e4%ba%8ejs%e4%b8%8b%e6%8b%89%e8%8f%9c%e5%8d%95%e5%8f%af%e8%ae%bf%e9%97%ae%e6%80%a7%e9%97%ae%e9%a2%98%e7%9a%84%e4%b8%80%e4%ba%9b%e6%80%9d%e8%80%83/">js下拉菜单实现与可访问性问题的一些思考</a></p>
-<p>4.<a target="_blank" rel="noopener" href="https://www.zhangxinxu.com/wordpress/2010/01/%e9%a1%b5%e9%9d%a2%e5%8f%af%e7%94%a8%e6%80%a7%e4%b9%8boutline%e8%bd%ae%e5%bb%93%e5%a4%96%e6%a1%86%e7%9a%84%e4%b8%80%e4%ba%9b%e7%a0%94%e7%a9%b6/">页面可用性之outline轮廓外框的一些研究</a></p>
+<p>1.<a
+target="_blank" rel="noopener" href="https://www.zhangxinxu.com/wordpress/2019/03/css-focus-visible/">CSS
+:focus-visible伪类让我感动哭了</a></p>
+<p>2.<a
+target="_blank" rel="noopener" href="https://www.zhangxinxu.com/wordpress/2013/02/study-span-a-element-keyboard-focusable-clickable/">span与a元素的键盘聚焦性以及键盘点击性研究</a></p>
+<p>3.<a
+target="_blank" rel="noopener" href="https://www.zhangxinxu.com/wordpress/2010/09/%e5%85%b3%e4%ba%8ejs%e4%b8%8b%e6%8b%89%e8%8f%9c%e5%8d%95%e5%8f%af%e8%ae%bf%e9%97%ae%e6%80%a7%e9%97%ae%e9%a2%98%e7%9a%84%e4%b8%80%e4%ba%9b%e6%80%9d%e8%80%83/">js下拉菜单实现与可访问性问题的一些思考</a></p>
+<p>4.<a
+target="_blank" rel="noopener" href="https://www.zhangxinxu.com/wordpress/2010/01/%e9%a1%b5%e9%9d%a2%e5%8f%af%e7%94%a8%e6%80%a7%e4%b9%8boutline%e8%bd%ae%e5%bb%93%e5%a4%96%e6%a1%86%e7%9a%84%e4%b8%80%e4%ba%9b%e7%a0%94%e7%a9%b6/">页面可用性之outline轮廓外框的一些研究</a></p>
 
     </div>
 
@@ -341,8 +392,8 @@
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/posts/fb53055d/" rel="next" title="Hexo + Next - 个人博客配置问题">
-                  Hexo + Next - 个人博客配置问题 <i class="fa fa-angle-right"></i>
+                <a href="/posts/ba0da289/" rel="next" title="git 学习及问题">
+                  git 学习及问题 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
