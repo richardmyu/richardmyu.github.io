@@ -2439,7 +2439,7 @@ header.header {
   transition: all 0.2s ease-in-out;
 }
 .links-of-author a::before {
-  background: #adddff;
+  background: #ffff1a;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -2585,7 +2585,8 @@ h6 {
   display: none;
 }
 .main blockquote {
-  background-color: #ddd;
+  background-color: #dfdfdf;
+  color: #444;
   border-left: 4px solid #999;
 }
 .post-toc .nav .nav-child {
