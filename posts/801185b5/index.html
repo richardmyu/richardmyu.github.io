@@ -200,7 +200,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-06-13 21:26:09" itemprop="dateModified" datetime="2025-06-13T21:26:09+08:00">2025-06-13</time>
+      <time title="修改时间：2025-06-18 22:50:02" itemprop="dateModified" datetime="2025-06-18T22:50:02+08:00">2025-06-18</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -245,7 +245,7 @@
 <p>可以看到 <code>getElementsByClassName</code> 比 <code>querySelectorAll</code> 快了近 10 倍。顺便我也测试了 <code>getElementById</code>、<code>getElementsByTagName</code> 以及 <code>querySelector</code>。即便是 <code>querySelector</code> 也较 <code>getElement</code> 系列的慢 2 倍左右。详情可见 <a target="_blank" rel="noopener" href="https://github.com/richardmyu/blog/blob/master/demo/gqTest/index.html">demo</a>。</p>
 <p>所以接下来的问题是：两者有何区别以及为什么产生这样的差异？</p>
 <h2>区别</h2>
-<p>在知乎上有这个问题的回答，下面记录一下<a href="#ck1">[1]</a>。</p>
+<p>在知乎上有这个问题的回答，下面记录一下[^1]。</p>
 <p><strong>1. W3C 标准</strong><br>
 <code>querySelectorAll</code> 属于 W3C 中的 Selectors API 规范。而 <code>getElementsBy</code> 系列则属于 W3C 的 DOM 规范。</p>
 <blockquote>
@@ -372,7 +372,7 @@ Every element, and the global document, have access to all of these functions ex
 <p>The real reason why <code>getElementsByTagName()</code> is faster than <code>querySelectorAll()</code> is because of the difference between live and static NodeList objects. Although I’m sure there are way to optimize this, doing no upfront work for a live NodeList will generally always be faster than doing all of the work to create a static NodeList. Determining which method to use is highly dependent on what you’re trying to do. If you’re just searching for elements by tag name and you don’t need a snapshot, then <code>getElementsByTagName()</code> should be used; if you do need a snapshot of results or you’re doing a more complex CSS query, then <code>querySelectorAll()</code> should be used.</p>
 <hr>
 <p>参考：</p>
-<p>1.<a id="ck1" target="_blank" rel="noopener" href="https://www.zhihu.com/question/24702250/answer/28695133"><code>querySelectorAll</code> 方法相比 <code>getElementsBy</code> 系列方法有什么区别？</a></p>
+<p>[^1].<a id="ck1" target="_blank" rel="noopener" href="https://www.zhihu.com/question/24702250/answer/28695133"><code>querySelectorAll</code> 方法相比 <code>getElementsBy</code> 系列方法有什么区别？</a></p>
 <p>2.<a id="ck2" target="_blank" rel="noopener" href="https://stackoverflow.com/questions/14377590/queryselector-and-queryselectorall-vs-getelementsbyclassname-and-getelementbyid/26757629#26757629?newreg=4620572a6eea474d95a0a444f26df4fd"><code>querySelector</code> and <code>querySelectorAll</code> vs <code>getElementsByClassName</code> and <code>getElementById</code> in JavaScript</a></p>
 <p>3.<a id="ck3" target="_blank" rel="noopener" href="https://humanwhocodes.com/blog/2010/09/28/why-is-getelementsbytagname-faster-that-queryselectorall/">Why is <code>getElementsByTagName()</code> faster than <code>querySelectorAll()</code>?</a></p>
 <p>4.<a target="_blank" rel="noopener" href="https://www.stefanjudis.com/blog/accessing-the-dom-is-not-equal-accessing-the-dom/">Accessing the DOM is not equal accessing the DOM – live vs. static element collections</a></p>
