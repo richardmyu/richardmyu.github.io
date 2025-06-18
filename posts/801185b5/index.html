@@ -221,342 +221,162 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><p>在《JavaScript 设计模式》第二章 -- "什么是模式" 中提到一个问题：</p>
+    <div class="post-body" itemprop="articleBody"><p>在《JavaScript 设计模式》第二章 – “什么是模式” 中提到一个问题：</p>
 <blockquote>
-<p>如果我们有一个脚本，想为页面上每一个具有 "foo" 类的 DOM
-元素添加一个计数器，查询列表最简单有效的方法是什么？</p>
+<p>如果我们有一个脚本，想为页面上每一个具有 “foo” 类的 DOM 元素添加一个计数器，查询列表最简单有效的方法是什么？</p>
 </blockquote>
-<ol type="1">
-<li><p>在页面上选择所有元素并储存，然后过滤集合；</p></li>
-<li><p>使用浏览器原生的 <code>querySelectorAll()</code>
-等功能来选择；</p></li>
-<li><p>使用原生特性 <code>getElementsByClassName()</code>
-等功能来获取；</p></li>
+<ol>
+<li>
+<p>在页面上选择所有元素并储存，然后过滤集合；</p>
+</li>
+<li>
+<p>使用浏览器原生的 <code>querySelectorAll()</code> 等功能来选择；</p>
+</li>
+<li>
+<p>使用原生特性 <code>getElementsByClassName()</code> 等功能来获取；</p>
+</li>
 </ol>
 <span id="more"></span>
-<p>然后很自然就会提出另一个问题是：那种方法最快？书中指出是第 3
-种方法，比其他方法快 8 到 10 倍。</p>
-<p>于是我去 <a
-target="_blank" rel="noopener" href="https://jsperf.com/getelementsbyclassname-vs-queryselectorall/223">jsperf</a>
-测试了一下，发现确实是这样。然后我们自己也可以创建测试文件进行测试：</p>
+<p>然后很自然就会提出另一个问题是：那种方法最快？书中指出是第 3 种方法，比其他方法快 8 到 10 倍。</p>
+<p>于是我去 <a target="_blank" rel="noopener" href="https://jsperf.com/getelementsbyclassname-vs-queryselectorall/223">jsperf</a>  测试了一下，发现确实是这样。然后我们自己也可以创建测试文件进行测试：</p>
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;test&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">console</span>.<span class="title function_">time</span>(<span class="string">&quot;querySelectorAll&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">100000</span>; i++) &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">&quot;.test&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">console</span>.<span class="title function_">timeEnd</span>(<span class="string">&quot;querySelectorAll&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">console</span>.<span class="title function_">time</span>(<span class="string">&quot;getElementsByClassName&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">100000</span>; i++) &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="variable language_">document</span>.<span class="title function_">getElementsByClassName</span>(<span class="string">&quot;.test&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">console</span>.<span class="title function_">timeEnd</span>(<span class="string">&quot;getElementsByClassName&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>三次测量结果分别为：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 第一次</span><br><span class="line">querySelectorAll: 56.283935546875ms</span><br><span class="line">getElementsByClassName: 5.2900390625ms</span><br><span class="line"></span><br><span class="line">// 第二次</span><br><span class="line">querySelectorAll: 60.02099609375ms</span><br><span class="line">getElementsByClassName: 5.06298828125ms</span><br><span class="line"></span><br><span class="line">// 第三次</span><br><span class="line">querySelectorAll: 53.64404296875ms</span><br><span class="line">getElementsByClassName: 5.153076171875ms</span><br></pre></td></tr></table></figure>
-<p>可以看到 <code>getElementsByClassName</code> 比
-<code>querySelectorAll</code> 快了近 10 倍。顺便我也测试了
-<code>getElementById</code>、<code>getElementsByTagName</code> 以及
-<code>querySelector</code>。即便是 <code>querySelector</code> 也较
-<code>getElement</code> 系列的慢 2 倍左右。详情可见 <a
-target="_blank" rel="noopener" href="https://github.com/richardmyu/blog/blob/master/demo/gqTest/index.html">demo</a>。</p>
+<p>可以看到 <code>getElementsByClassName</code> 比 <code>querySelectorAll</code> 快了近 10 倍。顺便我也测试了 <code>getElementById</code>、<code>getElementsByTagName</code> 以及 <code>querySelector</code>。即便是 <code>querySelector</code> 也较 <code>getElement</code> 系列的慢 2 倍左右。详情可见 <a target="_blank" rel="noopener" href="https://github.com/richardmyu/blog/blob/master/demo/gqTest/index.html">demo</a>。</p>
 <p>所以接下来的问题是：两者有何区别以及为什么产生这样的差异？</p>
-<h2 id="区别">区别</h2>
+<h2>区别</h2>
 <p>在知乎上有这个问题的回答，下面记录一下<a href="#ck1">[1]</a>。</p>
-<p><strong>1. W3C 标准</strong> <code>querySelectorAll</code> 属于 W3C
-中的 Selectors API 规范。而 <code>getElementsBy</code> 系列则属于 W3C 的
-DOM 规范。</p>
+<p><strong>1. W3C 标准</strong><br>
+<code>querySelectorAll</code> 属于 W3C 中的 Selectors API 规范。而 <code>getElementsBy</code> 系列则属于 W3C 的 DOM 规范。</p>
 <blockquote>
-<p><a target="_blank" rel="noopener" href="https://www.w3.org/TR/selectors-api2/">Selectors API Level
-2</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.w3.org/TR/selectors-api2/">Selectors API Level 2</a></p>
 </blockquote>
 <p><strong>2. 浏览器兼容</strong></p>
-<p><code>querySelectorAll</code> 已被 IE 8+、FF 3.5+、Safari
-3.1+、Chrome 和 Opera 10+ 良好支持 。<code>getElementsBy</code>
-系列，以最迟添加到规范中的 <code>getElementsByClassName</code> 为例，IE
-9+、FF 3 +、Safari 3.1+、Chrome 和 Opera 9+ 都已经支持该方法了。</p>
+<p><code>querySelectorAll</code> 已被 IE 8+、FF 3.5+、Safari 3.1+、Chrome 和 Opera 10+ 良好支持 。<code>getElementsBy</code> 系列，以最迟添加到规范中的 <code>getElementsByClassName</code> 为例，IE 9+、FF 3 +、Safari 3.1+、Chrome 和 Opera 9+ 都已经支持该方法了。</p>
 <blockquote>
-<p><a
-target="_blank" rel="noopener" href="https://caniuse.com/#search=querySelectorAll"><code>querySelectorAll</code>
-浏览器兼容性</a></p>
+<p><a target="_blank" rel="noopener" href="https://caniuse.com/#search=querySelectorAll"><code>querySelectorAll</code> 浏览器兼容性</a></p>
 </blockquote>
 <blockquote>
-<p><a
-target="_blank" rel="noopener" href="https://caniuse.com/#search=getElementsByClassName"><code>getElementsByClassName</code>
-浏览器兼容性</a></p>
+<p><a target="_blank" rel="noopener" href="https://caniuse.com/#search=getElementsByClassName"><code>getElementsByClassName</code> 浏览器兼容性</a></p>
 </blockquote>
 <p><strong>3. 接收参数</strong></p>
-<p><code>querySelectorAll</code> 方法接收的参数是一个 CSS 选择符（CSS
-选择器中的元素名，类和 <code>ID</code> 均不能以数字为开头）。而
-<code>getElementsBy</code> 系列接收的参数只能是单一的
-<code>className</code>、<code>tagName</code> 或 <code>name</code>
-等等。代码如下：</p>
+<p><code>querySelectorAll</code> 方法接收的参数是一个 CSS 选择符（CSS 选择器中的元素名，类和 <code>ID</code> 均不能以数字为开头）。而 <code>getElementsBy</code> 系列接收的参数只能是单一的 <code>className</code>、<code>tagName</code> 或 <code>name</code> 等等。代码如下：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> c1 = <span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">&#x27;.b1 .c&#x27;</span>);</span><br><span class="line"><span class="keyword">let</span> c2 = <span class="variable language_">document</span>.<span class="title function_">getElementsByClassName</span>(<span class="string">&#x27;c&#x27;</span>);</span><br><span class="line"><span class="keyword">let</span> c3 = <span class="variable language_">document</span>.<span class="title function_">getElementsByClassName</span>(<span class="string">&#x27;b2&#x27;</span>)[<span class="number">0</span>].<span class="title function_">getElementsByClassName</span>(<span class="string">&#x27;c&#x27;</span>);</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p><code>querySelectorAll</code>
-方法接收的参数包含一个或多个匹配的选择器(用逗号分隔多个选择器)。这个参数字符串必须是一个合法的
-CSS selector， 如果不是，会抛出一个 SyntaxError 错误。见 <a
-target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/Document/querySelectorAll">Document​.query​SelectorAll</a>
-和 <a
-target="_blank" rel="noopener" href="https://github.com/richardmyu/blog/blob/master/demo/gqTest/index2.html">demo2</a></p>
+<p><code>querySelectorAll</code> 方法接收的参数包含一个或多个匹配的选择器(用逗号分隔多个选择器)。这个参数字符串必须是一个合法的 CSS selector， 如果不是，会抛出一个 SyntaxError 错误。见 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/Document/querySelectorAll">Document​.query​SelectorAll</a> 和 <a target="_blank" rel="noopener" href="https://github.com/richardmyu/blog/blob/master/demo/gqTest/index2.html">demo2</a></p>
 </blockquote>
-<p>需要注意的是，<code>querySelectorAll</code>
-所接收的参数是必须严格符合 CSS
-选择符规范的。所以下面这种写法，将会抛出异常。代码如下：</p>
+<p>需要注意的是，<code>querySelectorAll</code> 所接收的参数是必须严格符合 CSS 选择符规范的。所以下面这种写法，将会抛出异常。代码如下：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> e1, e2;</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  e1 = <span class="variable language_">document</span>.<span class="title function_">getElementsByClassName</span>(<span class="string">&#x27;1a2b3c&#x27;</span>);</span><br><span class="line">  e2 = <span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">&#x27;.1a2b3c&#x27;</span>);</span><br><span class="line">&#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">error</span>(e.<span class="property">message</span>);</span><br><span class="line">  <span class="comment">// Failed to execute &#x27;querySelectorAll&#x27; on &#x27;Document&#x27;: &#x27;.1a2b&#x27; is not a valid selector.</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(e1 &amp;&amp; e1[<span class="number">0</span>].<span class="property">className</span>); <span class="comment">// content 1a2b</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(e2 &amp;&amp; e2[<span class="number">0</span>].<span class="property">className</span>); <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
 <p><strong>4. 返回值</strong></p>
-<p><code>querySelectorAll</code> 返回的是一个
-<code>static (not live) NodeList</code>，而 <code>getElementsBy</code>
-系列的返回的是一个
-<code>live NodeList(live HTMLCollection)</code>，下面我们再具体看看这是什么意思。</p>
+<p><code>querySelectorAll</code> 返回的是一个 <code>static (not live) NodeList</code>，而 <code>getElementsBy</code> 系列的返回的是一个 <code>live NodeList(live HTMLCollection)</code>，下面我们再具体看看这是什么意思。</p>
 <blockquote>
-<p><strong>Live NodeList</strong><a href="#ck3">[3]</a> &gt;This is one
-of the major gotchas of the Document Object Model. The NodeList object
-(also, the HTMLCollection object in the HTML DOM) is a special type of
-object. The <a
-target="_blank" rel="noopener" href="https://www.w3.org/TR/DOM-Level-3-Core/core.html#td-live">DOM
-Level 3 spec</a> says about HTMLCollection objects:</p>
+<p><strong>Live NodeList</strong><a href="#ck3">[3]</a></p>
+<blockquote>
+<p>This is one of the major gotchas of the Document Object Model. The NodeList object (also, the HTMLCollection object in the HTML DOM) is a special type of object. The <a target="_blank" rel="noopener" href="https://www.w3.org/TR/DOM-Level-3-Core/core.html#td-live">DOM Level 3 spec</a> says about HTMLCollection objects:</p>
+</blockquote>
 </blockquote>
 <blockquote>
-<p>NodeList and NamedNodeMap objects in the DOM are live; that is,
-changes to the underlying document structure are reflected in all
-relevant NodeList and NamedNodeMap objects. For example, if a DOM user
-gets a NodeList object containing the children of an Element, then
-subsequently adds more children to that element (or removes children, or
-modifies them), those changes are automatically reflected in the
-NodeList, without further action on the user’s part. Likewise, changes
-to a Node in the tree are reflected in all references to that Node in
-NodeList and NamedNodeMap objects.</p>
+<p>NodeList and NamedNodeMap objects in the DOM are live; that is, changes to the underlying document structure are reflected in all relevant NodeList and NamedNodeMap objects. For example, if a DOM user gets a NodeList object containing the children of an Element, then subsequently adds more children to that element (or removes children, or modifies them), those changes are automatically reflected in the NodeList, without further action on the user’s part. Likewise, changes to a Node in the tree are reflected in all references to that Node in NodeList and NamedNodeMap objects.</p>
 </blockquote>
 <blockquote>
-<p><strong>Static NodeList</strong><a href="#ck3">[3]</a> &gt; The
-<code>querySelectorAll()</code> method is different because it is a
-static NodeList instead of a live one. This is indicated in the <a
-target="_blank" rel="noopener" href="https://www.w3.org/TR/selectors-api/#queryselectorall">Selectors
-API spec</a>:</p>
+<p><strong>Static NodeList</strong><a href="#ck3">[3]</a></p>
+<blockquote>
+<p>The <code>querySelectorAll()</code> method is different because it is a static NodeList instead of a live one. This is indicated in the <a target="_blank" rel="noopener" href="https://www.w3.org/TR/selectors-api/#queryselectorall">Selectors API spec</a>:</p>
+</blockquote>
 </blockquote>
 <blockquote>
-<p>The NodeList object returned by the <code>querySelectorAll()</code>
-method must be static, not live ([DOM-LEVEL-3-CORE], section 1.1.1).
-Subsequent changes to the structure of the underlying document must not
-be reflected in the NodeList object. This means that the object will
-instead contain a list of matching Element nodes that were in the
-document at the time the list was created.</p>
+<p>The NodeList object returned by the <code>querySelectorAll()</code> method must be static, not live ([DOM-LEVEL-3-CORE], section 1.1.1). Subsequent changes to the structure of the underlying document must not be reflected in the NodeList object. This means that the object will instead contain a list of matching Element nodes that were in the document at the time the list was created.</p>
 </blockquote>
-<p>接下来我们再看看下面这个经典的例子(<a
-target="_blank" rel="noopener" href="https://github.com/richardmyu/blog/blob/master/demo/gqTest/index3.html">demo3</a>)：</p>
+<p>接下来我们再看看下面这个经典的例子(<a target="_blank" rel="noopener" href="https://github.com/richardmyu/blog/blob/master/demo/gqTest/index3.html">demo3</a>)：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Demo 1</span></span><br><span class="line"><span class="keyword">let</span> ul = <span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">&#x27;ul&#x27;</span>)[<span class="number">0</span>];</span><br><span class="line"><span class="keyword">let</span> lis = ul.<span class="title function_">querySelectorAll</span>(<span class="string">&quot;li&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; lis.<span class="property">length</span> ; i++)&#123;</span><br><span class="line">    ul.<span class="title function_">appendChild</span>(<span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;li&quot;</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Demo 2</span></span><br><span class="line"><span class="keyword">let</span> ul = <span class="variable language_">document</span>.<span class="title function_">getElementsByTagName</span>(<span class="string">&#x27;ul&#x27;</span>)[<span class="number">0</span>];</span><br><span class="line"><span class="keyword">let</span> lis = ul.<span class="title function_">getElementsByTagName</span>(<span class="string">&quot;li&quot;</span>); </span><br><span class="line">    </span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; lis.<span class="property">length</span> ; i++)&#123;</span><br><span class="line">    ul.<span class="title function_">appendChild</span>(<span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;li&quot;</span>)); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>If a collection is live, then the attributes and methods on that
-object must operate on the actual underlying data, not a snapshot of the
-data.<a
-target="_blank" rel="noopener" href="https://dom.spec.whatwg.org/#old-style-collections">from</a></p>
+<p>If a collection is live, then the attributes and methods on that object must operate on the actual underlying data, not a snapshot of the data.<a target="_blank" rel="noopener" href="https://dom.spec.whatwg.org/#old-style-collections">from</a></p>
 </blockquote>
-<p>因为 Demo 2 中的 <code>lis</code> 是一个动态的
-<code>Node List</code>， 每一次调用 <code>lis</code>
-都会重新对文档进行查询，导致无限循环的问题。而 Demo 1 中的
-<code>lis</code> 是一个静态的 <code>Node List</code>，是一个
-<code>li</code> 集合的快照，对文档的任何操作都不会对其产生影响。</p>
-<p>但为什么要这样设计呢？其实，在 W3C 规范中对
-<code>querySelectorAll</code> 方法有 <a
-target="_blank" rel="noopener" href="https://www.w3.org/TR/selectors-api2/#queryselectorall">明确规定</a>：</p>
+<p>因为 Demo 2 中的 <code>lis</code> 是一个动态的 <code>Node List</code>， 每一次调用 <code>lis</code> 都会重新对文档进行查询，导致无限循环的问题。而 Demo 1 中的 <code>lis</code> 是一个静态的 <code>Node List</code>，是一个 <code>li</code> 集合的快照，对文档的任何操作都不会对其产生影响。</p>
+<p>但为什么要这样设计呢？其实，在 W3C 规范中对 <code>querySelectorAll</code> 方法有 <a target="_blank" rel="noopener" href="https://www.w3.org/TR/selectors-api2/#queryselectorall">明确规定</a>：</p>
 <blockquote>
-<p>The NodeList object returned by the <code>querySelectorAll()</code>
-method must be static ([DOM], section 8).</p>
+<p>The NodeList object returned by the <code>querySelectorAll()</code> method must be static ([DOM], section 8).</p>
 </blockquote>
 <blockquote>
-<p>The NodeList object returned by the <code>querySelectorAll()</code>
-method must be static, not live ([DOM-LEVEL-3-CORE], section 1.1.1).
-Subsequent changes to the structure of the underlying document must not
-be reflected in the NodeList object. This means that the object will
-instead contain a list of matching Element nodes that were in the
-document at the time the list was created.<a
-target="_blank" rel="noopener" href="https://www.w3.org/TR/selectors-api/#queryselectorall">from</a></p>
+<p>The NodeList object returned by the <code>querySelectorAll()</code> method must be static, not live ([DOM-LEVEL-3-CORE], section 1.1.1). Subsequent changes to the structure of the underlying document must not be reflected in the NodeList object. This means that the object will instead contain a list of matching Element nodes that were in the document at the time the list was created.<a target="_blank" rel="noopener" href="https://www.w3.org/TR/selectors-api/#queryselectorall">from</a></p>
 </blockquote>
 <blockquote>
-<p>The <code>querySelectorAll(selectors)</code> method, when invoked,
-must return the static result of running scope-match a selectors string
-selectors against context object. <a
-target="_blank" rel="noopener" href="https://dom.spec.whatwg.org/#dom-parentnode-queryselectorall">from</a></p>
+<p>The <code>querySelectorAll(selectors)</code> method, when invoked, must return the static result of running scope-match a selectors string selectors against context object. <a target="_blank" rel="noopener" href="https://dom.spec.whatwg.org/#dom-parentnode-queryselectorall">from</a></p>
 </blockquote>
-<p>那什么是 <code>NodeList</code> 呢？W3C 中是 <a
-target="_blank" rel="noopener" href="https://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-536297177">这样</a>
-说明的：</p>
+<p>那什么是 <code>NodeList</code> 呢？W3C 中是 <a target="_blank" rel="noopener" href="https://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-536297177">这样</a> 说明的：</p>
 <blockquote>
-<p>The NodeList interface provides the abstraction of an ordered
-collection of nodes, without defining or constraining how this
-collection is implemented. <strong>NodeList objects in the DOM are
-live</strong>.</p>
+<p>The NodeList interface provides the abstraction of an ordered collection of nodes, without defining or constraining how this collection is implemented. <strong>NodeList objects in the DOM are live</strong>.</p>
 </blockquote>
-<p>whatwg 则是这样 <a
-target="_blank" rel="noopener" href="https://dom.spec.whatwg.org/#old-style-collections">说明</a>:</p>
+<p>whatwg 则是这样 <a target="_blank" rel="noopener" href="https://dom.spec.whatwg.org/#old-style-collections">说明</a>:</p>
 <blockquote>
-<p>A collection is an object that represents a list of nodes. A
-collection can be either live or static. <strong>Unless otherwise
-stated, a collection must be live</strong>.</p>
+<p>A collection is an object that represents a list of nodes. A collection can be either live or static. <strong>Unless otherwise stated, a collection must be live</strong>.</p>
 </blockquote>
-<p>所以，<code>NodeList</code> 本质上是一个动态的 <code>Node</code>
-集合，只是规范中对 <code>querySelectorAll</code>
-有明确要求，规定其必须返回一个静态的 <code>NodeList</code>
-对象。我们再看看在 Chrome 上面是个什么样的情况：</p>
+<p>所以，<code>NodeList</code> 本质上是一个动态的 <code>Node</code> 集合，只是规范中对 <code>querySelectorAll</code> 有明确要求，规定其必须返回一个静态的 <code>NodeList</code> 对象。我们再看看在 Chrome 上面是个什么样的情况：</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">&#x27;a&#x27;</span>).<span class="title function_">toString</span>();    <span class="comment">// &quot;[object NodeList]&quot;</span></span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">getElementsByTagName</span>(<span class="string">&#x27;a&#x27;</span>).<span class="title function_">toString</span>();    <span class="comment">// &quot;[object HTMLCollection]&quot;</span></span><br></pre></td></tr></table></figure>
-<p>这里又多了一个 <code>HTMLCollection</code> 对象出来，那
-<code>HTMLCollection</code> 又是什么？</p>
-<p><code>HTMLCollection</code> 在 W3C 的<a
-target="_blank" rel="noopener" href="https://www.w3.org/TR/DOM-Level-2-HTML/html.html#ID-75708506">定义</a>如下：</p>
+<p>这里又多了一个 <code>HTMLCollection</code> 对象出来，那 <code>HTMLCollection</code> 又是什么？</p>
+<p><code>HTMLCollection</code> 在 W3C 的<a target="_blank" rel="noopener" href="https://www.w3.org/TR/DOM-Level-2-HTML/html.html#ID-75708506">定义</a>如下：</p>
 <blockquote>
-<p>An HTMLCollection is a list of nodes. An individual node may be
-accessed by either ordinal index or the node's name or id attributes.
-Note: Collections in the HTML DOM are assumed to be live meaning that
-they are automatically updated when the underlying document is
-changed.</p>
+<p>An HTMLCollection is a list of nodes. An individual node may be accessed by either ordinal index or the node’s name or id attributes.<br>
+Note: Collections in the HTML DOM are assumed to be live meaning that they are automatically updated when the underlying document is changed.</p>
 </blockquote>
 <blockquote>
-<p>A NodeList object is a collection of nodes.<a
-target="_blank" rel="noopener" href="https://dom.spec.whatwg.org/#nodelist">from</a> An HTMLCollection
-object is a collection of elements.<a
-target="_blank" rel="noopener" href="https://dom.spec.whatwg.org/#htmlcollection">from</a></p>
+<p>A NodeList object is a collection of nodes.<a target="_blank" rel="noopener" href="https://dom.spec.whatwg.org/#nodelist">from</a><br>
+An HTMLCollection object is a collection of elements.<a target="_blank" rel="noopener" href="https://dom.spec.whatwg.org/#htmlcollection">from</a></p>
 </blockquote>
-<p>实际上，<code>HTMLCollection</code> 和 <code>NodeList</code>
-十分相似，都是一个动态的元素集合，每次访问都需要重新对文档进行查询。两者的本质上差别在于，<code>HTMLCollection</code>
-是属于 <strong>Document Object Model HTML</strong> 规范，而
-<code>NodeList</code> 属于 <strong>Document Object Model Core</strong>
-规范。</p>
-<p>简单说，<code>NodeList</code> 是 <code>node</code> 集合，而
-<code>HTMLCollection</code> 则是 <code>element</code>
-集合，即前者包含后者。</p>
-<p>看看下面的例子会比较好理解（<a
-target="_blank" rel="noopener" href="https://github.com/richardmyu/blog/blob/master/demo/gqTest/index4.html">demo4</a>）：</p>
+<p>实际上，<code>HTMLCollection</code> 和 <code>NodeList</code> 十分相似，都是一个动态的元素集合，每次访问都需要重新对文档进行查询。两者的本质上差别在于，<code>HTMLCollection</code> 是属于 <strong>Document Object Model HTML</strong> 规范，而 <code>NodeList</code> 属于 <strong>Document Object Model Core</strong> 规范。</p>
+<p>简单说，<code>NodeList</code> 是 <code>node</code> 集合，而 <code>HTMLCollection</code> 则是 <code>element</code> 集合，即前者包含后者。</p>
+<p>看看下面的例子会比较好理解（<a target="_blank" rel="noopener" href="https://github.com/richardmyu/blog/blob/master/demo/gqTest/index4.html">demo4</a>）：</p>
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>3<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>4<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">let</span> ul = <span class="variable language_">document</span>.<span class="title function_">getElementsByTagName</span>(<span class="string">&#x27;ul&#x27;</span>)[<span class="number">0</span>]</span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">let</span> lis1 = ul.<span class="property">childNodes</span></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">let</span> lis2 = ul.<span class="property">children</span></span></span><br><span class="line"><span class="language-javascript">  </span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">console</span>.<span class="title function_">log</span>(lis1.<span class="title function_">toString</span>(), lis1.<span class="property">length</span>);    <span class="comment">// &quot;[object NodeList]&quot; 7</span></span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">console</span>.<span class="title function_">log</span>(lis2.<span class="title function_">toString</span>(), lis2.<span class="property">length</span>);    <span class="comment">// &quot;[object HTMLCollection]&quot; 3</span></span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p><code>NodeList</code> 对象会包含文档中的所有节点，如
-<code>Element</code>、<code>Text</code> 和 <code>Comment</code>
-等。<code>HTMLCollection</code> 对象只会包含文档中的
-<code>Element</code> 节点。另外，<code>HTMLCollection</code> 对象比
-<code>NodeList</code> 对象 多提供了一个 <code>namedItem</code>
-方法。</p>
-<p>总之，在现代浏览器中，<code>querySelectorAll</code>
-的返回值是一个静态的 <code>NodeList</code> 对象，而
-<code>getElementsBy</code> 系列的返回值实际上是一个动态的
-<code>HTMLCollection</code> 对象 。</p>
-<p>我理解的是 <code>querySelectorAll</code> 返回的是 DOM 的快照，而
-<code>getElementsBy</code> 返回的是真实的
-DOM（我猜想，<code>querySelectorAll</code> 比 <code>getElementsBy</code>
-慢在于遍历的 <code>node</code> 更多？？？）</p>
-<p>stackoverflow 上也有这个问题 <a
-href="#ck2">[2]</a>。其中某个答案认为：<code>querySelector</code> is
-more useful when you want to use more complex selectors. O(∩_∩)O哈哈~
-这也是一个方面吧！</p>
+<p><code>NodeList</code> 对象会包含文档中的所有节点，如 <code>Element</code>、<code>Text</code> 和 <code>Comment</code> 等。<code>HTMLCollection</code> 对象只会包含文档中的 <code>Element</code> 节点。另外，<code>HTMLCollection</code> 对象比 <code>NodeList</code> 对象 多提供了一个 <code>namedItem</code> 方法。</p>
+<p>总之，在现代浏览器中，<code>querySelectorAll</code> 的返回值是一个静态的 <code>NodeList</code> 对象，而 <code>getElementsBy</code> 系列的返回值实际上是一个动态的 <code>HTMLCollection</code> 对象 。</p>
+<p>我理解的是 <code>querySelectorAll</code> 返回的是 DOM 的快照，而 <code>getElementsBy</code> 返回的是真实的 DOM（我猜想，<code>querySelectorAll</code> 比 <code>getElementsBy</code> 慢在于遍历的 <code>node</code> 更多？？？）</p>
+<p>stackoverflow 上也有这个问题 <a href="#ck2">[2]</a>。其中某个答案认为：<code>querySelector</code> is more useful when you want to use more complex selectors. O(∩_∩)O哈哈~ 这也是一个方面吧！</p>
 <p>而另外一个回答者 Alvaro Montoro 的观点是：</p>
-<p>About the differences, there is an important one in the results
-between <code>querySelectorAll</code> and
-<code>getElementsByClassName</code>: the return value is different.
-<code>querySelectorAll</code> will return a static collection, while
-<code>getElementsByClassName</code> returns a live collection</p>
+<p>About the differences, there is an important one in the results between <code>querySelectorAll</code> and <code>getElementsByClassName</code>: the return value is different. <code>querySelectorAll</code> will return a static collection, while <code>getElementsByClassName</code> returns a live collection</p>
 <ul>
-<li>A variable generated with <code>querySelectorAll</code> will contain
-the elements that fulfilled the selector at the moment the method was
-called.</li>
-<li>A variable generated with <code>getElementsByClassName</code> will
-contain the elements that fulfilled the selector when it is used (that
-may be different from the moment the method was called).</li>
+<li>A variable generated with <code>querySelectorAll</code> will contain the elements that fulfilled the selector at the moment the method was called.</li>
+<li>A variable generated with <code>getElementsByClassName</code> will contain the elements that fulfilled the selector when it is used (that may be different from the moment the method was called).</li>
 </ul>
-<p>即通过 <code>querySelectorAll</code> 获取的变量是固定的，仅在
-<code>querySelectorAll</code> 被调用的时候，有可能变化；而
-<code>getElementsByClassName</code>
-获取的变量则是不固定的，可能会在该变量被引用的时候发生变化（因为是
-<code>live collection</code>，每次调用都会重新查询
-DOM，从而更新变量的值）</p>
+<p>即通过 <code>querySelectorAll</code> 获取的变量是固定的，仅在 <code>querySelectorAll</code> 被调用的时候，有可能变化；而 <code>getElementsByClassName</code>  获取的变量则是不固定的，可能会在该变量被引用的时候发生变化（因为是 <code>live collection</code>，每次调用都会重新查询 DOM，从而更新变量的值）</p>
 <p>Timofey 的观点为：</p>
 <ul>
-<li><p>1.<code>querySelector*</code> is more flexible, as you can pass
-it any CSS3 selector, not just simple ones for id, tag, or
-class.</p></li>
-<li><p>2.<strong>The performance of <code>querySelector*</code> changes
-with the size of the DOM that it is invoked on</strong>. To be precise,
-<code>querySelector*</code> calls run in O(n) time and
-<code>getElement*</code> calls run in O(1) time, where n is the total
-number of all children of the element or document it is invoked on. This
-fact seems to be the least well-known, so I am bolding it.</p></li>
-<li><p>3.<strong><code>getElement*</code> calls return direct references
-to the DOM, whereas <code>querySelector*</code> internally makes copies
-of the selected elements before returning references to
-them</strong>.</p></li>
+<li>
+<p>1.<code>querySelector*</code> is more flexible, as you can pass it any CSS3 selector, not just simple ones for id, tag, or class.</p>
+</li>
+<li>
+<p>2.<strong>The performance of <code>querySelector*</code> changes with the size of the DOM that it is invoked on</strong>. To be precise, <code>querySelector*</code> calls run in O(n) time and <code>getElement*</code> calls run in O(1) time, where n is the total number of all children of the element or document it is invoked on. This fact seems to be the least well-known, so I am bolding it.</p>
+</li>
+<li>
+<p>3.<strong><code>getElement*</code> calls return direct references to the DOM, whereas <code>querySelector*</code> internally makes copies of the selected elements before returning references to them</strong>.</p>
+</li>
 </ul>
 <blockquote>
-<p>Changes to live elements apply immediately - changing a live element
-changes it directly in the DOM, and therefore the very next line of JS
-can see that change, and it propagates to any other live elements
-referencing that element immediately. Changes to static elements are
-only written back to the DOM after the current script is done executing.
-These extra copy and write steps have some small, and generally
-negligible, effect on performance.</p>
+<p>Changes to live elements apply immediately - changing a live element changes it directly in the DOM, and therefore the very next line of JS can see that change, and it propagates to any other live elements referencing that element immediately.<br>
+Changes to static elements are only written back to the DOM after the current script is done executing. These extra copy and write steps have some small, and generally negligible, effect on performance.</p>
 </blockquote>
 <ul>
-<li>4.The return types of these calls vary. <code>querySelecto</code>r
-and <code>getElementById</code> both return a single element.
-<code>querySelectorAll</code> and <code>getElementsByName</code> both
-return NodeLists, being newer functions that were added after
-HTMLCollection went out of fashion. The older
-<code>getElementsByClassName</code> and
-<code>getElementsByTagName</code> both return HTMLCollections. Again,
-this is essentially irrelevant to whether the elements are live or
-static.</li>
+<li>4.The return types of these calls vary. <code>querySelecto</code>r and <code>getElementById</code> both return a single element. <code>querySelectorAll</code> and <code>getElementsByName</code> both return NodeLists, being newer functions that were added after HTMLCollection went out of fashion. The older <code>getElementsByClassName</code> and <code>getElementsByTagName</code> both return HTMLCollections. Again, this is essentially irrelevant to whether the elements are live or static.</li>
 </ul>
 <blockquote>
-<p>注意：<code>getElementsByName</code> 在 <a
-target="_blank" rel="noopener" href="https://www.w3.org/TR/DOM-Level-2-HTML/html.html#ID-71555259">w3c
-规范</a>中返回的是 live NodeList，实际测试中也是，不同于
-<code>getElementsByClassName</code> 和
-<code>getElementsByTagName</code>。 Every element, and the global
-document, have access to all of these functions except for
-<code>getElementsByName</code>, which is only implemented on
-document.</p>
+<p>注意：<code>getElementsByName</code> 在 <a target="_blank" rel="noopener" href="https://www.w3.org/TR/DOM-Level-2-HTML/html.html#ID-71555259">w3c 规范</a>中返回的是 live NodeList，实际测试中也是，不同于 <code>getElementsByClassName</code> 和 <code>getElementsByTagName</code>。<br>
+Every element, and the global document, have access to all of these functions except for <code>getElementsByName</code>, which is only implemented on document.</p>
 </blockquote>
-<h2
-id="getelementsbytagname-比-queryselectorall-方法快"><code>getElementsByTagName</code>
-比 <code>querySelectorAll</code> 方法快</h2>
-<p>Live NodeList objects can be created and returned faster by the
-browser because they don’t have to have all of the information up front
-while static NodeLists need to have all of their data from the start. To
-hammer home the point, the WebKit source code has a separate source file
-for each type of NodeList: <a
-target="_blank" rel="noopener" href="http://trac.webkit.org/browser/webkit/trunk/WebCore/dom/DynamicNodeList.cpp?rev=41093">DynamicNodeList.cpp</a>
-and <a
-target="_blank" rel="noopener" href="http://trac.webkit.org/browser/webkit/trunk/WebCore/dom/StaticNodeList.cpp?rev=41093">StaticNodeList.cpp</a>.
-The two object types are created in very different ways.[3]</p>
-<p>The DynamicNodeList object is created by registering its existence in
-a cache. Essentially, the overheard to creating a new DynamicNodeList is
-incredibly small because it doesn’t have to do any work upfront.
-Whenever the DynamicNodeList is accessed, it must query the document for
-changes, as evidenced by the length property and the item() method
-(which is the same as using bracket notation).</p>
-<p>Compare this to the StaticNodeList object, instances of which are
-created in another file and then populated with all of the data inside
-of a loop. The upfront cost to running a query on the document is much
-more significant than when using a DynamicNodeList instance.</p>
-<p>If you take a look at the WebKit source code that actually creates
-the return value for <code>querySelectorAll()</code>, you’ll see that a
-loop is used to get every result and build up a NodeList that is
-eventually returned.</p>
+<h2><code>getElementsByTagName</code> 比 <code>querySelectorAll</code> 方法快</h2>
+<p>Live NodeList objects can be created and returned faster by the browser because they don’t have to have all of the information up front while static NodeLists need to have all of their data from the start. To hammer home the point, the WebKit source code has a separate source file for each type of NodeList: <a target="_blank" rel="noopener" href="http://trac.webkit.org/browser/webkit/trunk/WebCore/dom/DynamicNodeList.cpp?rev=41093">DynamicNodeList.cpp</a> and <a target="_blank" rel="noopener" href="http://trac.webkit.org/browser/webkit/trunk/WebCore/dom/StaticNodeList.cpp?rev=41093">StaticNodeList.cpp</a>. The two object types are created in very different ways.[3]</p>
+<p>The DynamicNodeList object is created by registering its existence in a cache. Essentially, the overheard to creating a new DynamicNodeList is incredibly small because it doesn’t have to do any work upfront. Whenever the DynamicNodeList is accessed, it must query the document for changes, as evidenced by the length property and the item() method (which is the same as using bracket notation).</p>
+<p>Compare this to the StaticNodeList object, instances of which are created in another file and then populated with all of the data inside of a loop. The upfront cost to running a query on the document is much more significant than when using a DynamicNodeList instance.</p>
+<p>If you take a look at the WebKit source code that actually creates the return value for <code>querySelectorAll()</code>, you’ll see that a loop is used to get every result and build up a NodeList that is eventually returned.</p>
 <ul>
 <li><strong>Conclusion</strong></li>
 </ul>
-<p>The real reason why <code>getElementsByTagName()</code> is faster
-than <code>querySelectorAll()</code> is because of the difference
-between live and static NodeList objects. Although I’m sure there are
-way to optimize this, doing no upfront work for a live NodeList will
-generally always be faster than doing all of the work to create a static
-NodeList. Determining which method to use is highly dependent on what
-you’re trying to do. If you’re just searching for elements by tag name
-and you don’t need a snapshot, then <code>getElementsByTagName()</code>
-should be used; if you do need a snapshot of results or you’re doing a
-more complex CSS query, then <code>querySelectorAll()</code> should be
-used.</p>
-<hr />
+<p>The real reason why <code>getElementsByTagName()</code> is faster than <code>querySelectorAll()</code> is because of the difference between live and static NodeList objects. Although I’m sure there are way to optimize this, doing no upfront work for a live NodeList will generally always be faster than doing all of the work to create a static NodeList. Determining which method to use is highly dependent on what you’re trying to do. If you’re just searching for elements by tag name and you don’t need a snapshot, then <code>getElementsByTagName()</code> should be used; if you do need a snapshot of results or you’re doing a more complex CSS query, then <code>querySelectorAll()</code> should be used.</p>
+<hr>
 <p>参考：</p>
-<p>1.<a id="ck1" target="_blank" rel="noopener" href="https://www.zhihu.com/question/24702250/answer/28695133"><code>querySelectorAll</code>
-方法相比 <code>getElementsBy</code> 系列方法有什么区别？</a></p>
-<p>2.<a id="ck2" target="_blank" rel="noopener" href="https://stackoverflow.com/questions/14377590/queryselector-and-queryselectorall-vs-getelementsbyclassname-and-getelementbyid/26757629#26757629?newreg=4620572a6eea474d95a0a444f26df4fd"><code>querySelector</code>
-and <code>querySelectorAll</code> vs <code>getElementsByClassName</code>
-and <code>getElementById</code> in JavaScript</a></p>
-<p>3.<a id="ck3" target="_blank" rel="noopener" href="https://humanwhocodes.com/blog/2010/09/28/why-is-getelementsbytagname-faster-that-queryselectorall/">Why
-is <code>getElementsByTagName()</code> faster than
-<code>querySelectorAll()</code>?</a></p>
-<p>4.<a
-target="_blank" rel="noopener" href="https://www.stefanjudis.com/blog/accessing-the-dom-is-not-equal-accessing-the-dom/">Accessing
-the DOM is not equal accessing the DOM – live vs. static element
-collections</a></p>
-<p>5.<a
-target="_blank" rel="noopener" href="https://hackernoon.com/htmlcollection-nodelist-and-array-of-objects-da42737181f9">HTMLCollection,
-NodeList and array of objects</a></p>
+<p>1.<a id="ck1" target="_blank" rel="noopener" href="https://www.zhihu.com/question/24702250/answer/28695133"><code>querySelectorAll</code> 方法相比 <code>getElementsBy</code> 系列方法有什么区别？</a></p>
+<p>2.<a id="ck2" target="_blank" rel="noopener" href="https://stackoverflow.com/questions/14377590/queryselector-and-queryselectorall-vs-getelementsbyclassname-and-getelementbyid/26757629#26757629?newreg=4620572a6eea474d95a0a444f26df4fd"><code>querySelector</code> and <code>querySelectorAll</code> vs <code>getElementsByClassName</code> and <code>getElementById</code> in JavaScript</a></p>
+<p>3.<a id="ck3" target="_blank" rel="noopener" href="https://humanwhocodes.com/blog/2010/09/28/why-is-getelementsbytagname-faster-that-queryselectorall/">Why is <code>getElementsByTagName()</code> faster than <code>querySelectorAll()</code>?</a></p>
+<p>4.<a target="_blank" rel="noopener" href="https://www.stefanjudis.com/blog/accessing-the-dom-is-not-equal-accessing-the-dom/">Accessing the DOM is not equal accessing the DOM – live vs. static element collections</a></p>
+<p>5.<a target="_blank" rel="noopener" href="https://hackernoon.com/htmlcollection-nodelist-and-array-of-objects-da42737181f9">HTMLCollection, NodeList and array of objects</a></p>
 
     </div>
 

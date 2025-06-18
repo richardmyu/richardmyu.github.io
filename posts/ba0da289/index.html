@@ -223,31 +223,23 @@
     
     <div class="post-body" itemprop="articleBody"><p>NOTHING</p>
 <span id="more"></span>
-<h2 id="power-shell-中-git-log-中文显示问题">1.power shell 中
-<code>git log</code> 中文显示问题</h2>
-<p>今天试着使用 power shell 来提交代码，然后使用 <code>git log</code>
-查看提交记录的时候，发现无法显示中文，确切地说是中文被显示为对应
-<code>ASCII</code> 字符：</p>
+<h2>1.power shell 中 <code>git log</code> 中文显示问题</h2>
+<p>今天试着使用 power shell 来提交代码，然后使用 <code>git log</code> 查看提交记录的时候，发现无法显示中文，确切地说是中文被显示为对应 <code>ASCII</code> 字符：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">add(docs): &lt;E5&gt;&lt;A2&gt;&lt;9E&gt;&lt;E5&gt;&lt;8A&gt;&lt;A0&gt; linux-&lt;E7&gt;&lt;8E&gt;&lt;AF&gt;&lt;E5&gt;&lt;A2&gt;&lt;83&gt;&lt;E5&gt;&lt;8F&gt;&lt;98&gt;&lt;E9&gt;&lt;87&gt;&lt;8F&gt;&lt;E9&gt;&lt;83&gt;&lt;A8&gt;&lt;E5&gt;&lt;88&gt;&lt;86&gt;&lt;E8&gt;&lt;AF&gt;&lt;BE&gt;&lt;E7&gt;&lt;A8&gt;&lt;8B&gt;&lt;E7&gt;&lt;AC&gt;&lt;94&gt;&lt;E8&gt;&lt;AE&gt;&lt;B0&gt;</span><br></pre></td></tr></table></figure>
-<p>通过查询，阅读 <a
-target="_blank" rel="noopener" href="https://www.jianshu.com/p/0116e05ee74a">powershell中git
-log的中文问题</a> 和 <a
-target="_blank" rel="noopener" href="https://blog.csdn.net/FollowGodSteps/article/details/96271359">PowerShell
-| git log 中文乱码问题解决</a> 解决了这个问题。</p>
+<p>通过查询，阅读 <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/0116e05ee74a">powershell中git log的中文问题</a> 和 <a target="_blank" rel="noopener" href="https://blog.csdn.net/FollowGodSteps/article/details/96271359">PowerShell | git log 中文乱码问题解决</a> 解决了这个问题。</p>
 <p>第一步，在 power shell 中输入以下命令：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global core.quotepath false</span><br><span class="line">git config --global gui.encoding utf-8</span><br><span class="line">git config --global i18n.commit.encoding utf-8</span><br><span class="line">git config --global i18n.logoutputencoding utf-8</span><br><span class="line">$env:LESSCHARSET=&#x27;utf-8&#x27;</span><br></pre></td></tr></table></figure>
 <p>第二步，添加环境变量：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">setx LESSCHARSET &#x27;utf-8&#x27;</span><br></pre></td></tr></table></figure>
-<h2 id="一些小命令">2.一些小命令</h2>
-<h3 id="撤回跟踪">2.1.撤回跟踪</h3>
-<p>有些时候项目没来得及先建 <code>.gitignore</code>
-文件，可能就上传了一些不需要上传的文件，这是需要撤回对这些文件的跟踪，重新提交：</p>
+<h2>2.一些小命令</h2>
+<h3 id="2-1-撤回跟踪">2.1.撤回跟踪</h3>
+<p>有些时候项目没来得及先建 <code>.gitignore</code> 文件，可能就上传了一些不需要上传的文件，这是需要撤回对这些文件的跟踪，重新提交：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 针对文件夹，且不删除本地文件的情况</span><br><span class="line">git rm -r --cache document</span><br><span class="line"></span><br><span class="line"># 针对文档，且删除本地文件的情况</span><br><span class="line">git rm --f file</span><br></pre></td></tr></table></figure>
 <ul>
 <li>处理文件夹时，需要添加 <code>-r</code>;</li>
 <li>不想删除本地文件，只是像撤回跟踪，要使用 <code>--cache</code>;</li>
 </ul>
-<h3 id="git-配置">2.2.git 配置</h3>
+<h3 id="2-2-git-配置">2.2.git 配置</h3>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 查看</span><br><span class="line">git config --global --list</span><br><span class="line"></span><br><span class="line"># 添加</span><br><span class="line">git config --global core.autocrlf=false</span><br><span class="line"></span><br><span class="line"># 编辑</span><br><span class="line">git config --global --edit</span><br><span class="line"></span><br><span class="line"># 删除</span><br><span class="line">git config --global --unset core.autocrlf</span><br><span class="line"></span><br><span class="line"># 查看所有的配置以及它们所在的文件</span><br><span class="line">git config --list --show-origin</span><br></pre></td></tr></table></figure>
 
     </div>
