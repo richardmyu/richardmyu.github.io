@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favcion-apple.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="/css/highlight/atom-one-dark.min.css">
+
+<link rel="stylesheet" href="https://fonts.geekzu.org/css?family=EB+Garamond:300,300italic,400,400italic,700,700italic%7CCinzel+Decorative:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CSource+Code+Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"richardmyu.github.io","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.19.0","exturl":false,"sidebar":{"position":"right","display":"hide","padding":240,"offset":12,"width":320},"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":null,"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+
+
+<link rel="canonical" href="https://richardmyu.github.io/posts/75d7ecc9/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://richardmyu.github.io/posts/75d7ecc9/","path":"posts/75d7ecc9/","title":"ubuntu(20.04)安装及其他配置记录"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>ubuntu(20.04)安装及其他配置记录 | Serendipity</title>
+  
+
+
+
+
+
+
+
+<link href="https://fonts.loli.net/css2?family=Noto+Serif+SC:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Serendipity</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">悟已往之不谏，知来者之可追</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="yum"
+      src="https://raw.githubusercontent.com/richardmyu/gallery/1.0.0/avat/avatar_min.jpg">
+  <p class="site-author-name" itemprop="name">yum</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/richardmyu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;richardmyu" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/9646027/yum-3fe" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;9646027&#x2F;yum-3fe" rel="noopener me" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richardmyu.github.io/posts/75d7ecc9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://raw.githubusercontent.com/richardmyu/gallery/1.0.0/avat/avatar_min.jpg">
+      <meta itemprop="name" content="yum">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Serendipity">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="ubuntu(20.04)安装及其他配置记录 | Serendipity">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ubuntu(20.04)安装及其他配置记录
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-10-23 20:00:49" itemprop="dateCreated datePublished" datetime="2021-10-23T20:00:49+08:00">2021-10-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-06-26 22:09:45" itemprop="dateModified" datetime="2025-06-26T22:09:45+08:00">2025-06-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/cs/" itemprop="url" rel="index"><span itemprop="name">cs</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">                         ./+o+-       </span><br><span class="line">                 yyyyy- -yyyyyy+      </span><br><span class="line">              ://+//////-yyyyyyo      </span><br><span class="line">          .++ .:/++++++/-.+sss/`      </span><br><span class="line">        .:++o:  /++++++++/:--:/-      </span><br><span class="line">       o:+o+:++.`..```.-/oo+++++/     </span><br><span class="line">      .:+o:+o/.          `+sssoo+/    </span><br><span class="line"> .++/+:+oo+o:`             /sssooo.   </span><br><span class="line">/+++//+:`oo+o               /::--:.   </span><br><span class="line">\+/+o+++`o++o               ++////.   </span><br><span class="line"> .++.o+++oo+:`             /dddhhh.   </span><br><span class="line">      .+.o+oo:.          `oddhhhh+    </span><br><span class="line">       \+.++o+o``-````.:ohdhhhhh+     </span><br><span class="line">        `:o+++ `ohhhhhhhhyo++os:</span><br><span class="line">          .o:`.syhhhhhhh/.oo++o`</span><br><span class="line">              /osyyyyyyo++ooo+++/</span><br><span class="line">                  ````` +oo+++o\:</span><br><span class="line">                         `oo++.</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<h3 id="1-下载和刻制U盘">1.下载和刻制U盘</h3>
+<p><strong>官网下载 Ubuntu</strong></p>
+<p><a target="_blank" rel="noopener" href="https://cn.ubuntu.com/?_ga=2.34667617.1995811959.1636286456-2098375975.1628786043">中文官网</a><br>
+<a target="_blank" rel="noopener" href="https://ubuntu.com/">英文官文</a></p>
+<p><strong>制作U盘</strong></p>
+<p>这部分网上教程很多，我选的是 <a target="_blank" rel="noopener" href="https://www.pendrivelinux.com/universal-usb-installer-easy-as-1-2-3/">Universal USB Installer</a>，安装起来很简单。</p>
+<h3 id="2-分区">2.分区</h3>
+<p>分区这一块也不是很懂，只是简单的分了 <code>/</code> 50G、<code>swap</code> 16G、<code>/boot</code> 2G、<code>/home</code> 剩下全部。</p>
+<h3 id="3-驱动">3.驱动</h3>
+<p>装了驱动，但是开启双屏后，鼠标会在标题栏附近闪烁，后面更是发生了合盖后无法唤醒等问题，不能肯定说都是驱动带来的，但这些问题确实是安装驱动之后才有的。所以这次重装系统，就不准备安装驱动了，把需要双屏完成的工作，留给 win11 来完成。</p>
+<h3 id="4-换源以及更新">4.换源以及更新</h3>
+<p>这些教程也很多，也不多说了。</p>
+<hr>
+<p>下面主要说说 ubuntu 系统下，安装的应用程序的一些问题和细节。</p>
+<h3 id="5-安装-nvm">5.安装 <code>nvm</code></h3>
+<p>昨天使用 <code>curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash</code> 的时候，报错为：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl: (60) SSL certificate problem: unable to get local issuer certificate</span><br></pre></td></tr></table></figure>
+<p>今天再试，报错为：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl: (7) Failed to connect to raw.githubusercontent.com port 443: 拒绝连接</span><br></pre></td></tr></table></figure>
+<p>使用 <code>raw.githubusercontent.com</code>，报 <code>curl: (7)</code> 类错误，而使用 <code>github.com</code>，则报 <code>curl: (60)</code> 类错误；而使用国内的 gitee，丝毫没有问题。</p>
+<hr>
+<p>最后还是靠手动下载  <code>install.sh</code>，在 <code>~</code> 目录下创建 <code>.nvm</code> 目录，然后放入脚本并运行：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd ~</span><br><span class="line"></span><br><span class="line">mkdir .nvm</span><br><span class="line"></span><br><span class="line">cd .nvm</span><br><span class="line"></span><br><span class="line">bash install.sh</span><br><span class="line"></span><br><span class="line">sudo vim ~/.zshrc  # or .nashrc or .profile</span><br></pre></td></tr></table></figure>
+<p>粘贴以下代码：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export NVM_DIR=&quot;$([ -z &quot;$&#123;XDG_CONFIG_HOME-&#125;&quot; ] &amp;&amp; printf %s &quot;$&#123;HOME&#125;/.nvm&quot; || printf %s &quot;$&#123;XDG_CONFIG_HOME&#125;/nvm&quot;)&quot;</span><br><span class="line">[ -s &quot;$NVM_DIR/nvm.sh&quot; ] &amp;&amp; \. &quot;$NVM_DIR/nvm.sh&quot; # This loads nvm</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意是两行的</p>
+</blockquote>
+<p>然后：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">source ~/.zshrc</span><br><span class="line">nvm -v</span><br></pre></td></tr></table></figure>
+<p>若能查到正确版本号，就安装完成。后面就是要修改源了：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">nvm 源</span></span><br><span class="line">vim ~/.nvm/nvm.sh</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">搜索 NVM_NODEJS_ORG_MIRROR，大概在 1915 行</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="variable">$&#123;NVM_NODEJS_ORG_MIRROR:-https://nodejs.org/dist&#125;</span><span class="string">&quot; ;;</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">to</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string"><span class="variable">$&#123;NVM_NODEJS_ORG_MIRROR:-https://npm.taobao.org/mirrors/node/i&#125;</span>&quot;</span> ;;</span></span><br><span class="line">source ~/.nvm/nvm.sh</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">npm 源</span></span><br><span class="line">npm config set registry https://registry.npm.taobao.org/</span><br></pre></td></tr></table></figure>
+<hr>
+<p><strong>更新</strong></p>
+<p>第二次安装（新系统），在我要编辑 <code>.zshrc</code> 文件的时候，发现里面有：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export NVM_DIR=&quot;$HOME/.nvm&quot;</span><br><span class="line">[ -s &quot;$NVM_DIR/nvm.sh&quot; ] &amp;&amp; \. &quot;$NVM_DIR/nvm.sh&quot;  # This loads nvm</span><br><span class="line">[ -s &quot;$NVM_DIR/bash_completion&quot; ] &amp;&amp; \. &quot;$NVM_DIR/bash_completion&quot;  # This loads nvm bash_completion</span><br></pre></td></tr></table></figure>
+<p>这时候，不用手动添加，再更新一下 <code>.zshrc</code>，就可以查看 <code>nvm</code> 版本信息了，即安装成功了。</p>
+<hr>
+<p><code>nvm</code> 官网提供安装的命令：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash</span><br><span class="line"></span><br><span class="line">wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash</span><br></pre></td></tr></table></figure>
+<p><code>-o</code> 我懂，但不明白 <code>-o-</code> 是什么意思，查了一下，也没找到答案。</p>
+<p>参考：<br>
+<a target="_blank" rel="noopener" href="https://github.com/nvm-sh/nvm">nvm-sh/nvm</a><br>
+<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/21c7590b6ed7">Ubuntu nvm安装笔记</a></p>
+<h3 id="6-Typora">6.Typora</h3>
+<p>使用 Ubuntu Software 安装 Typora 后，再安装 pandoc，怎么都无法使用 pandoc；查看官网以后，尝试使用命令行安装，结果是可以使用 pandoc 插件。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">wget -qO - https://typora.io/linux/public-key.asc | sudo apt-key add -</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">add Typora<span class="string">&#x27;s repository</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">末尾 ./ 不要忽略或遗漏</span></span></span><br><span class="line">sudo add-apt-repository &#x27;deb https://typora.io/linux ./&#x27;</span><br><span class="line">sudo apt-get update</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">install Typora</span></span></span><br><span class="line">sudo apt install typora </span><br></pre></td></tr></table></figure>
+<hr>
+<p><a target="_blank" rel="noopener" href="https://support.typora.io/Typora-on-Linux/">Install Typora on Linux</a></p>
+<h3 id="7-oh-my-zsh">7.<code>oh-my-zsh</code></h3>
+<p>首先安装出现很大的问题，按照官方的方法，不管是开启还是关闭代理：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl: (7) Failed to connect to raw.githubusercontent.com port 443: 拒绝连接</span><br></pre></td></tr></table></figure>
+<p>可以从官网下载 <code>/tools/install</code> 到 <code>/home/username/</code> 下，然后运行 <code>./install.sh</code>，然后自动克隆仓库，然后出现安装成功的标志。</p>
+<p>当然还可以直接克隆：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">根据实际情况，调整仓库 API</span></span><br><span class="line">git clone git@hub.fastgit.org:ohmyzsh/ohmyzsh.git ~/.oh-my-zsh</span><br><span class="line">cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">将 zsh 设置为系统默认 shell</span></span><br><span class="line">sudo chsh -s /bin/zsh</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看</span></span><br><span class="line">echo $SHELL</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>设置 shell，我的电脑需要重启，才能启用。</p>
+</blockquote>
+<hr>
+<p>我觉得最有用的插件大概就是 <code>zsh-autosuggestions</code> 和 <code>zsh-syntax-highlighting</code>了：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">zsh-autosuggestions</span></span><br><span class="line">git clone https://github.com/zsh-users/zsh-autosuggestions $&#123;ZSH_CUSTOM:-~/.oh-my-zsh&#125;/plugins/zsh-autosuggestions</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">zsh-syntax-highlighting</span></span><br><span class="line">git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $&#123;ZSH_CUSTOM:-~/.oh-my-zsh&#125;/plugins/zsh-syntax-highlighting</span><br></pre></td></tr></table></figure>
+<p>然后修改 <code>.zshrc</code>：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">plugins=( </span><br><span class="line">        git </span><br><span class="line">        zsh-autosuggestions</span><br><span class="line">        zsh-syntax-highlighting </span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>再让配置文件生效，<code>source ~/.zshrc</code>。</p>
+<hr>
+<p><strong>热键绑定</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">bindkey &#x27;\e[1;3D&#x27; backward-word       # ALT+左键：向后跳一个单词</span><br><span class="line">bindkey &#x27;\e[1;3C&#x27; forward-word        # ALT+右键：前跳一个单词</span><br><span class="line">bindkey &#x27;\e[1;3A&#x27; beginning-of-line   # ALT+上键：跳到行首</span><br><span class="line">bindkey &#x27;\e[1;3B&#x27; end-of-line         # ALT+下键：调到行尾</span><br></pre></td></tr></table></figure>
+<h3 id="8-进入睡眠状态无法唤醒">8.进入睡眠状态无法唤醒</h3>
+<p>上一次装系统的时候，驱动正常，可以改，没有其他毛病（也没出现和盖后无法唤醒）；</p>
+<p>第二次装系统的时候，驱动是手动，无法在系统中改驱动，后来使用命令安装驱动，这样可以使用第二屏看也页面了，没想到带来了副作用，昨晚合上显示屏，没有进入睡眠状态，把电池耗完了。今天充电完成了，发现可以进入睡眠状态，但是进入睡眠状态，就无法唤醒，屏幕一直是黑的，左上角一个光标一直闪烁，只能通过电源键强制关机，然后开机使用。</p>
+<p>1.检查是否安装了<code>laptop-mode-tools</code> 工具包:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">dpkg -l | grep laptop-mode-tools</span></span><br></pre></td></tr></table></figure>
+<p>如果执行命令无结果输出，表示未安装(如果已安装，忽略第2步)。</p>
+<p>2.安装 <code>laptop-mode-tools</code>:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt-get install laptop-mode-tools</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看</span></span><br><span class="line">dpkg -l | grep laptop-mode-tools</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">ii laptop-mode-tools   x.xx-ubuntu</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">all                 Tools <span class="keyword">for</span> Power Savings based on</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">battery/AC status</span></span><br></pre></td></tr></table></figure>
+<p>3.判断 Laptop 是否启用了 <code>laptop_mode</code> 模式</p>
+<p>如果显示结果为 0，则表示未启动，如果为非 0 的数字则表示启动了。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat /proc/sys/vm/laptop_mode</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">0</span></span><br></pre></td></tr></table></figure>
+<p>4.启动 <code>laptop_mode</code></p>
+<p>修改配置文件 <code>/etc/default/acpi-support</code>，更改:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ENABLE_LAPTOP_MODE=true</span><br></pre></td></tr></table></figure>
+<p>直接在终端中输入 <code>sudo laptop_mode start</code>。启动了 <code>laptop_mode</code> 之后，基本上就不会遇到无法唤醒的情况了。</p>
+<p>有些用户在 <code>acpi-support</code> 中并未找到 <code>ENABLE_LAPTOP_MODE=true</code> 被注释的项。文件最后一行有提示：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Note: to <span class="built_in">enable</span> <span class="string">&quot;laptop mode: (to spin down your hard drive for longer</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">periods of time), install the laptop-mode-tools package and configure</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">it in /etc/laptop-mode/laptop-mode.conf.</span></span></span><br></pre></td></tr></table></figure>
+<p>在 <code>/etc/laptop-mode/laptop-mode.conf</code> 中进行配置:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#</span><br><span class="line"># Enable laptop mode when on bettery power.</span><br><span class="line">#</span><br><span class="line">ENABLE_LAPTOP_MODE_ON_BATTERY=1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#</span><br><span class="line"># Enable laptop mode when on AC power.</span><br><span class="line">#</span><br><span class="line">ENABLE_LAPTOP_MODE_ON_AC=1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#</span><br><span class="line"># Enable laptop mode when the laptop&#x27;s lid is closed, even when we&#x27;re on AC</span><br><span class="line"># power? (ACPI-ONLY).</span><br><span class="line">#</span><br><span class="line">ENABLE_LAPTOP_MODE_WHEN_LID_CLOSED=1</span><br></pre></td></tr></table></figure>
+<p>启动 <code>laptop_mode</code> 并查看：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo laptop_mode start</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Laptop mode</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">enabled, active [unchanged]</span></span><br></pre></td></tr></table></figure>
+<p>到此基本完成。</p>
+<hr>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://www.linuxdiyf.com/linux/18722.html">解决ubuntu合盖后无法唤醒</a></p>
+<h3 id="9-clean…files…blocks">9.clean…files…blocks</h3>
+<p>安装了一下 python，分别试了一下 2.x 和 3.x 版本，使用 <code>autoremove</code> 删除包，出现了问题；首先是浏览器异常，重启后，浏览器没了，再看一下应用程序列表，发现少了好几个；然后准备重启看看，然后出现一下信息：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/dev/nvme0n1p2: clean, xxxxxx/xxxxxxxx files, xxxxxxx/xxxxxxxxx blocks</span><br></pre></td></tr></table></figure>
+<p>按照参考 1 操作到 <code>init 3</code> 进入文本模式，就无法操作了。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Failed to open initctl fifo: xxxx</span><br><span class="line">Failed to talk to daemon.</span><br></pre></td></tr></table></figure>
+<hr>
+<p>参考：</p>
+<p>[1]: <a target="_blank" rel="noopener" href="https://www.pianshen.com/article/22821245611/">ubuntu开机卡在/dev/sda3: clean … files,… blocks不动的解决方案</a><br>
+[2]: <a target="_blank" rel="noopener" href="https://www.pianshen.com/article/39311289678/">ubuntu启动错误: /dev/sda1 xxxx clean, xxxx/xxxx files, xxxx/xxxx blocks</a></p>
+<h3 id="10-“门”-等字的异常显示">10.“门” 等字的异常显示</h3>
+<p>因为 Noto Sans CJK 中包含日文韩文，而日文的排序中文的前面。</p>
+<blockquote>
+<p>JP KR SC TC</p>
+</blockquote>
+<p>鉴于系统我选择的是语言是英语，所以只调整了排序。在 <code>/etc/fonts/conf.d/64-language-selector-prefer.conf </code> 调整顺序就行。</p>
+<blockquote>
+<p>SC TC JP KR</p>
+</blockquote>
+<p>然后更新字体缓存即可生效：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># fc-cache -fv</span><br></pre></td></tr></table></figure>
+<p>执行以下命令检查，如果出现 <code>NotoSansCJK-Regular.ttc: &quot;Noto Sans CJK SC&quot; &quot;Regular&quot;</code> 则表示设置成功：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># fc-match -s | grep &#x27;Noto Sans CJK&#x27;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>参考<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/Localization_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)/Simplified_Chinese_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#.E4.BF.AE.E6.AD.A3.E7.AE.80.E4.BD.93.E4.B8.AD.E6.96.87.E6.98.BE.E7.A4.BA.E4.B8.BA.E5.BC.82.E4.BD.93.EF.BC.88.E6.97.A5.E6.96.87.EF.BC.89.E5.AD.97.E5.BD.A2">Localization (简体中文)/Simplified Chinese (简体中文)</a></p>
+<h3 id="11-搭建-c-开发环境">11.搭建 c 开发环境</h3>
+<p><strong>1.安装 vscode 并安装 <code>c/c++</code> 插件</strong></p>
+<p><strong>2.终端安装 <code>gcc/g++</code> 环境</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt install build-essential</span><br></pre></td></tr></table></figure>
+<hr>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_35477207/article/details/78165411">在Ubuntu下搭建C/C++编程环境</a></p>
+<h3 id="12-搭建-python-环境">12.搭建 python 环境</h3>
+<blockquote>
+<p>前提：系统默认 python v3.8.10，没有 python2.x，且不打算安装 python2.x。</p>
+</blockquote>
+<blockquote>
+<p><strong>不要随便删除 python，不要随便删除 python，不要随便删除 python！</strong></p>
+</blockquote>
+<p><strong>1.安装 pycharm</strong></p>
+<p><a target="_blank" rel="noopener" href="https://www.jetbrains.com/pycharm/">pycharm 官网</a></p>
+<p>选择好版本，下载完成后，会在 <code>Downloads</code> 得到 <code>pycharm-community-202x.x.x.tar.gz</code> 的文件：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">解压</span></span><br><span class="line">cd ~/</span><br><span class="line">tar -xvzf Downloads/pycharm-community-202x.x.x.tar.gz -C ./Software</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">启动</span></span><br><span class="line">cd ./Software/pycharm-community-202x.x.3/bin</span><br><span class="line">sh ./pycharm.sh</span><br></pre></td></tr></table></figure>
+<p>安装好以后，是通过 <code>sh ./pycharm.sh</code> 启动的，所以需要一个快捷方式。</p>
+<p>添加 pycharm 快捷启动方式：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd /usr/share/applications</span><br><span class="line"></span><br><span class="line">sudo touch pycharm.desktop</span><br><span class="line">sudo vim pycharm.desktop</span><br></pre></td></tr></table></figure>
+<p><code>pycharm.desktop</code>：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Desktop Entry]</span><br><span class="line">Type = Application</span><br><span class="line">Name = Pycharm</span><br><span class="line">Exec = /home/xx/xx/pycharm-community-2021.2.3/bin/pycharm.sh</span><br><span class="line">Icon = /home/xx/xx/pycharm-community-2021.2.3/bin/pycharm.png</span><br><span class="line">Terminal = false # 是否在终端打开</span><br><span class="line">Categories = Pycharm</span><br></pre></td></tr></table></figure>
+<p><strong>2.安装 pip 并换源</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt install python3-pip</span><br><span class="line"></span><br><span class="line">cd ~</span><br><span class="line">mkdir .pip</span><br><span class="line">cd .pip</span><br><span class="line">touch pip.conf</span><br><span class="line">vim pip.conf</span><br></pre></td></tr></table></figure>
+<p><code>pip.conf</code>：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[global]</span><br><span class="line">timeout = 5000</span><br><span class="line">index-url = https://mirrors.aliyun.com/pypi/simple/</span><br><span class="line">[install]</span><br><span class="line">trusted-host = mirrors.aliyun.com</span><br></pre></td></tr></table></figure>
+<hr>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45895022/article/details/106372183">【环境配置】ubuntu 配置 python 开发环境</a><br>
+<a target="_blank" rel="noopener" href="https://blog.csdn.net/feimeng116/article/details/106462303/">在Ubuntu20.04中搭建Python开发环境</a></p>
+<h3 id="13-dask-to-dash">13.dask-to-dash</h3>
+<p>安装了 <code>dask-to-dash</code> 后，有一定的概率出现原 dock 与当前 dock 并存。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt remove gnome-shell-extension-ubuntu-dock</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">实际一共删除了三个包</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">gnome-shell-extension-ubuntu-dock</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">ubuntu-desltop</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">ubuntu-desktop-minimal</span></span><br></pre></td></tr></table></figure>
+<p>不知道会有怎样的副作用，先记录着吧！</p>
+<h3 id="14-VS-Code">14.VS Code</h3>
+<p>从 snap 安装的 VS Code 会出现无法切换中文的情况。</p>
+<blockquote>
+<p>有人说官网下载的没问题，有的说也有问题，我决定试一试。</p>
+</blockquote>
+<p>官网无法直接下载 VS Code，需要修改下载链接的域名：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 官网的下载地址</span><br><span class="line">https://az764295.vo.msecnd.net/stable/3a6960b964327f0e3882ce18fcebd07ed191b316/code_1.62.2-1636665017_amd64.deb</span><br><span class="line"></span><br><span class="line"># 修改: 将 az764295.vo.msecnd.net 替换 vscode.cdn.azure.cn</span><br><span class="line">https://vscode.cdn.azure.cn/stable/3a6960b964327f0e3882ce18fcebd07ed191b316/code_1.62.2-1636665017_amd64.deb</span><br></pre></td></tr></table></figure>
+<p>先卸载 VS Code，不需要删除配置文件，然后使用 <code>dpkg</code> 安装：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo dpkg -i code_1.62.2-1636665017_amd64.deb</span><br></pre></td></tr></table></figure>
+<p>打开安装好的 VS Code，之前的配置可以用，中英文切换正常。</p>
+<p>更多阅读：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/microsoft/vscode/issues/96041#issuecomment-874815619"> unable to input chinese character #96041 </a></p>
+<h3 id="15-exa">15.<code>exa</code></h3>
+<p>用 <code>exa</code> 取代 <code>ls</code>，不是那花里胡哨的颜色，主要是 <code>--tree</code> 比 <code>-lR</code> 好看多了。</p>
+<p>按照文章 2 安装好 rust 环境和 cargo，然后使用 cargo 安装 exa，有问题：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">error: failed to fetch `https://github.com/rust-lang/crates.io-index`</span><br><span class="line"></span><br><span class="line">Caused by:</span><br><span class="line">  network failure seems to have happened</span><br><span class="line">  if a proxy or similar is necessary `net.git-fetch-with-cli` may help here</span><br><span class="line">  https://doc.rust-lang.org/cargo/reference/config.html#netgit-fetch-with-cli</span><br><span class="line"></span><br><span class="line">Caused by:</span><br><span class="line">  [7] Couldn&#x27;t connect to server (Failed to connect to 127.0.0.1 port 1181 after 0 ms: Connection refused); class=Net (12)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>不用细看，十有八九换源就可以解决 😭</p>
+<hr>
+<p>1.<a target="_blank" rel="noopener" href="https://github.com/ogham/exa">exa(github)</a><br>
+2.<a target="_blank" rel="noopener" href="https://itsfoss.com/install-rust-cargo-ubuntu-linux/">How to Install Rust and Cargo on Ubuntu and Other Linux Distributions</a><br>
+3.<a target="_blank" rel="noopener" href="https://mirrors.ustc.edu.cn/help/crates.io-index.html">Rust Crates 源使用帮助</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>yum
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://richardmyu.github.io/posts/75d7ecc9/" title="ubuntu(20.04)安装及其他配置记录">https://richardmyu.github.io/posts/75d7ecc9/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/ubuntu/" rel="tag"># ubuntu</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/bd25fad3/" rel="prev" title="【书】局外人">
+                  <i class="fa fa-angle-left"></i> 【书】局外人
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/91749eaa/" rel="next" title="【书】人生为何不同">
+                  【书】人生为何不同 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2018 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">yum</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+<script src="/js/highlight.min.js"></script>
+<script>
+  $(function(){
+    $('pre code').each((i, el) => {
+    hljs.highlightElement(el);
+  });
+</script>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
